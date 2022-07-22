@@ -1,0 +1,1478 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\usepackage{amsmath,amssymb}
+\usepackage{lmodern}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\hypersetup{
+  pdftitle={Análises do SIVEP-Gripe},
+  pdfauthor={Gestantes e puérperas},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+\urlstyle{same} % disable monospaced font for URLs
+\usepackage[margin=1in]{geometry}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{longtable,booktabs,array}
+\usepackage{calc} % for calculating minipage widths
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+
+\title{Análises do SIVEP-Gripe}
+\author{Gestantes e puérperas}
+\date{21/julho/2022}
+
+\begin{document}
+\maketitle
+
+\hypertarget{sobre-a-base-de-dados-e-pacotes-do-r-utilizados}{%
+\section{Sobre a base de dados e pacotes do R
+utilizados}\label{sobre-a-base-de-dados-e-pacotes-do-r-utilizados}}
+
+A seguir são carregados os pacotes do R
+(\url{https://www.r-project.org}) utilizados para filtragem e tratamento
+dos dados considerados no dashboard
+\url{https://observatorioobstetrico.shinyapps.io/covid_gesta_puerp_br}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#carregar pacotes}
+\NormalTok{loadlibrary }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(x) \{}
+  \ControlFlowTok{if}\NormalTok{ (}\SpecialCharTok{!}\FunctionTok{require}\NormalTok{(x, }\AttributeTok{character.only =} \ConstantTok{TRUE}\NormalTok{)) \{}
+    \FunctionTok{install.packages}\NormalTok{(x, }\AttributeTok{dependencies =}\NormalTok{ T)}
+    \ControlFlowTok{if}\NormalTok{ (}\SpecialCharTok{!}\FunctionTok{require}\NormalTok{(x, }\AttributeTok{character.only =} \ConstantTok{TRUE}\NormalTok{))}
+      \FunctionTok{stop}\NormalTok{(}\StringTok{"Package not found"}\NormalTok{)}
+\NormalTok{  \}}
+\NormalTok{\}}
+
+\NormalTok{packages }\OtherTok{\textless{}{-}}
+  \FunctionTok{c}\NormalTok{(}
+    \StringTok{"readr"}\NormalTok{,}
+    \StringTok{"readxl"}\NormalTok{,}
+    \StringTok{"janitor"}\NormalTok{,}
+    \StringTok{"dplyr"}\NormalTok{,}
+    \StringTok{"forcats"}\NormalTok{,}
+    \StringTok{"stringr"}\NormalTok{,}
+    \StringTok{"lubridate"}\NormalTok{,}
+    \StringTok{"summarytools"}\NormalTok{,}
+    \StringTok{"magrittr"}\NormalTok{,}
+    \StringTok{"questionr"}\NormalTok{,}
+    \StringTok{"knitr"}\NormalTok{,}
+    \StringTok{"data.table"}\NormalTok{,}
+    \StringTok{"writexl"}\NormalTok{,}
+    \StringTok{"modelsummary"}
+\NormalTok{  )}
+\FunctionTok{lapply}\NormalTok{(packages, loadlibrary)}
+\end{Highlighting}
+\end{Shaded}
+
+A base de dados SIVEP-Gripe (Sistema de Informação da Vigilância
+Epidemiológica da Gripe) tem os registros dos casos e óbitos de SRAG
+(Síndrome Respiratória Aguda Grave). A notificação é compulsória para
+síndrome gripal (caracterizado por pelo menos dois dos seguintes sinais
+e sintomas: febre, mesmo que referida, calafrios, dor de garganta, dor
+de cabeça, tosse, coriza, distúrbios olfatórios ou de paladar) e que tem
+dispneia / desconforto respiratório ou pressão persistente no peito ou
+Saturação de O2 menor que 95\% no ar ambiente ou cor azulada dos lábios
+ou rosto. Indivíduos assintomáticos com confirmação laboratorial por
+biologia molecular ou exame imunológico para infecção por COVID-19
+também são relatados.
+
+Para notificações no Sivep-Gripe, os casos hospitalizados em hospitais
+públicos e privados e todas as mortes devido a infecções respiratórias
+agudas graves, independentemente da hospitalização, devem ser
+considerados.
+
+A vigilância da SRAG no Brasil é desenvolvida pelo Ministério da Saúde
+(MS), por meio da Secretaria de Vigilância em Saúde (SVS), desde a
+pandemia de Influenza A (H1N1) em 2009. Mais informações em
+\url{https://coronavirus.saude.gov.br/definicao-de-caso-e-notificacao}.
+
+Os dados do ano de 2020, 2021 e 2022 foram obtidos em 26/Janeiro/2022 no
+site \url{https://opendatasus.saude.gov.br}. Os dados de 2020, 2021 e
+2022 são carregados e combinados abaixo:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\#\#\#\#\#\#\#\# carregando as bases de dados \#\#\#\#\#\#\#\#\#\#\#}
+\NormalTok{ckanr}\SpecialCharTok{::}\FunctionTok{ckanr\_setup}\NormalTok{(}\StringTok{"https://opendatasus.saude.gov.br"}\NormalTok{)}
+
+\NormalTok{arqs }\OtherTok{\textless{}{-}}\NormalTok{ ckanr}\SpecialCharTok{::}\FunctionTok{package\_search}\NormalTok{(}\StringTok{"srag 2020"}\NormalTok{)}\SpecialCharTok{$}\NormalTok{results }\SpecialCharTok{\%\textgreater{}\%}
+\NormalTok{  purrr}\SpecialCharTok{::}\FunctionTok{map}\NormalTok{(}\StringTok{"resources"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+\NormalTok{  purrr}\SpecialCharTok{::}\FunctionTok{map}\NormalTok{(purrr}\SpecialCharTok{::}\NormalTok{keep, }\SpecialCharTok{\textasciitilde{}}\NormalTok{ .x}\SpecialCharTok{$}\NormalTok{mimetype }\SpecialCharTok{==} \StringTok{"text/csv"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+\NormalTok{  purrr}\SpecialCharTok{::}\FunctionTok{map\_chr}\NormalTok{(purrr}\SpecialCharTok{::}\NormalTok{pluck, }\DecValTok{1}\NormalTok{, }\StringTok{"url"}\NormalTok{)}
+
+\NormalTok{arqs2 }\OtherTok{\textless{}{-}}\NormalTok{ ckanr}\SpecialCharTok{::}\FunctionTok{package\_search}\NormalTok{(}\StringTok{"srag 2021"}\NormalTok{)}\SpecialCharTok{$}\NormalTok{results }\SpecialCharTok{\%\textgreater{}\%}
+\NormalTok{  purrr}\SpecialCharTok{::}\FunctionTok{map}\NormalTok{(}\StringTok{"resources"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+\NormalTok{  purrr}\SpecialCharTok{::}\FunctionTok{map}\NormalTok{(purrr}\SpecialCharTok{::}\NormalTok{keep, }\SpecialCharTok{\textasciitilde{}}\NormalTok{ .x}\SpecialCharTok{$}\NormalTok{mimetype }\SpecialCharTok{==} \StringTok{"text/csv"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+\NormalTok{  purrr}\SpecialCharTok{::}\FunctionTok{map\_chr}\NormalTok{(purrr}\SpecialCharTok{::}\NormalTok{pluck, }\DecValTok{2}\NormalTok{, }\StringTok{"url"}\NormalTok{)}
+
+\NormalTok{dados\_a }\OtherTok{\textless{}{-}} \FunctionTok{fread}\NormalTok{(arqs[}\DecValTok{1}\NormalTok{], }\AttributeTok{sep =} \StringTok{";"}\NormalTok{)}
+
+\NormalTok{dados\_b }\OtherTok{\textless{}{-}} \FunctionTok{fread}\NormalTok{(arqs[}\DecValTok{2}\NormalTok{], }\AttributeTok{sep =} \StringTok{";"}\NormalTok{)}
+
+\NormalTok{dados\_c }\OtherTok{\textless{}{-}} \FunctionTok{fread}\NormalTok{(arqs2[}\DecValTok{1}\NormalTok{], }\AttributeTok{sep =} \StringTok{";"}\NormalTok{)}
+
+ \DocumentationTok{\#\#\#\# Concatenar dados 2020, 2021 e 2022 \#\#\#\#\#\#\#\#\#\#\#\#\#\#}
+\NormalTok{dados\_a }\OtherTok{\textless{}{-}}\NormalTok{ dados\_a }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{FATOR\_RISC =} \FunctionTok{case\_when}\NormalTok{(FATOR\_RISC }\SpecialCharTok{==} \DecValTok{1} \SpecialCharTok{\textasciitilde{}} \StringTok{"S"}\NormalTok{,}
+\NormalTok{                                FATOR\_RISC }\SpecialCharTok{==} \DecValTok{2} \SpecialCharTok{\textasciitilde{}} \StringTok{"N"}\NormalTok{))}
+\NormalTok{dados\_b }\OtherTok{\textless{}{-}}\NormalTok{ dados\_b }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{FATOR\_RISC =} \FunctionTok{case\_when}\NormalTok{(FATOR\_RISC }\SpecialCharTok{==} \DecValTok{1} \SpecialCharTok{\textasciitilde{}} \StringTok{"S"}\NormalTok{,}
+\NormalTok{                                FATOR\_RISC }\SpecialCharTok{==} \DecValTok{2} \SpecialCharTok{\textasciitilde{}} \StringTok{"N"}\NormalTok{))}
+
+\NormalTok{dados\_c }\OtherTok{\textless{}{-}}\NormalTok{ dados\_c }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{FATOR\_RISC =} \FunctionTok{case\_when}\NormalTok{(FATOR\_RISC }\SpecialCharTok{==} \DecValTok{1} \SpecialCharTok{\textasciitilde{}} \StringTok{"S"}\NormalTok{,}
+\NormalTok{                                FATOR\_RISC }\SpecialCharTok{==} \DecValTok{2} \SpecialCharTok{\textasciitilde{}} \StringTok{"N"}\NormalTok{))}
+\CommentTok{\# COD\_IDADE de 2022 para character para padronizar com 2020 e 2021}
+
+\NormalTok{dados\_c}\SpecialCharTok{$}\NormalTok{COD\_IDADE }\OtherTok{\textless{}{-}} \FunctionTok{as.character}\NormalTok{(dados\_c}\SpecialCharTok{$}\NormalTok{COD\_IDADE)}
+
+\NormalTok{dados1 }\OtherTok{\textless{}{-}}\NormalTok{ dados\_a }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{full\_join}\NormalTok{(dados\_b) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{full\_join}\NormalTok{(dados\_c)}
+
+\CommentTok{\#Criar variavel de ano do caso}
+\NormalTok{dados1 }\OtherTok{\textless{}{-}}\NormalTok{  dados1 }\SpecialCharTok{\%\textgreater{}\%}
+\NormalTok{  dplyr}\SpecialCharTok{::}\FunctionTok{mutate}\NormalTok{(}
+    \AttributeTok{dt\_sint =} \FunctionTok{as.Date}\NormalTok{(DT\_SIN\_PRI, }\AttributeTok{format =} \StringTok{"\%d/\%m/\%Y"}\NormalTok{),}
+    \AttributeTok{dt\_nasc =} \FunctionTok{as.Date}\NormalTok{(DT\_NASC, }\AttributeTok{format =} \StringTok{"\%d/\%m/\%Y"}\NormalTok{),}
+    \AttributeTok{ano =}\NormalTok{ lubridate}\SpecialCharTok{::}\FunctionTok{year}\NormalTok{(dt\_sint),}
+\NormalTok{  ) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{filter}\NormalTok{(}
+\NormalTok{    dt\_sint }\SpecialCharTok{\textgreater{}=} \FunctionTok{as.Date}\NormalTok{(}\StringTok{"21{-}02{-}2020"}\NormalTok{, }\AttributeTok{format =} \StringTok{"\%d{-}\%m{-}\%Y"}\NormalTok{) }\SpecialCharTok{\&}
+\NormalTok{      dt\_sint }\SpecialCharTok{\textless{}=} \FunctionTok{as.Date}\NormalTok{(}\StringTok{"16{-}07{-}2022"}\NormalTok{, }\AttributeTok{format =} \StringTok{"\%d{-}\%m{-}\%Y"}\NormalTok{)}
+\NormalTok{  ) }
+\end{Highlighting}
+\end{Shaded}
+
+Para acessar os pdf's com informações sobre as semanas epidemiológicas
+acesse:
+\url{http://portalsinan.saude.gov.br/calendario-epidemiologico-2020/43-institucional/171-calendario-epidemiologico-2021}.
+
+Há atualmente 3295895 observações na base de dados e são as variáveis:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{names}\NormalTok{(dados1)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   [1] "DT_NOTIFIC" "SEM_NOT"    "DT_SIN_PRI" "SEM_PRI"    "SG_UF_NOT" 
+##   [6] "ID_REGIONA" "CO_REGIONA" "ID_MUNICIP" "CO_MUN_NOT" "ID_UNIDADE"
+##  [11] "CO_UNI_NOT" "CS_SEXO"    "DT_NASC"    "NU_IDADE_N" "TP_IDADE"  
+##  [16] "COD_IDADE"  "CS_GESTANT" "CS_RACA"    "CS_ESCOL_N" "ID_PAIS"   
+##  [21] "CO_PAIS"    "SG_UF"      "ID_RG_RESI" "CO_RG_RESI" "ID_MN_RESI"
+##  [26] "CO_MUN_RES" "CS_ZONA"    "SURTO_SG"   "NOSOCOMIAL" "AVE_SUINO" 
+##  [31] "FEBRE"      "TOSSE"      "GARGANTA"   "DISPNEIA"   "DESC_RESP" 
+##  [36] "SATURACAO"  "DIARREIA"   "VOMITO"     "OUTRO_SIN"  "OUTRO_DES" 
+##  [41] "PUERPERA"   "FATOR_RISC" "CARDIOPATI" "HEMATOLOGI" "SIND_DOWN" 
+##  [46] "HEPATICA"   "ASMA"       "DIABETES"   "NEUROLOGIC" "PNEUMOPATI"
+##  [51] "IMUNODEPRE" "RENAL"      "OBESIDADE"  "OBES_IMC"   "OUT_MORBI" 
+##  [56] "MORB_DESC"  "VACINA"     "DT_UT_DOSE" "MAE_VAC"    "DT_VAC_MAE"
+##  [61] "M_AMAMENTA" "DT_DOSEUNI" "DT_1_DOSE"  "DT_2_DOSE"  "ANTIVIRAL" 
+##  [66] "TP_ANTIVIR" "OUT_ANTIV"  "DT_ANTIVIR" "HOSPITAL"   "DT_INTERNA"
+##  [71] "SG_UF_INTE" "ID_RG_INTE" "CO_RG_INTE" "ID_MN_INTE" "CO_MU_INTE"
+##  [76] "UTI"        "DT_ENTUTI"  "DT_SAIDUTI" "SUPORT_VEN" "RAIOX_RES" 
+##  [81] "RAIOX_OUT"  "DT_RAIOX"   "AMOSTRA"    "DT_COLETA"  "TP_AMOSTRA"
+##  [86] "OUT_AMOST"  "PCR_RESUL"  "DT_PCR"     "POS_PCRFLU" "TP_FLU_PCR"
+##  [91] "PCR_FLUASU" "FLUASU_OUT" "PCR_FLUBLI" "FLUBLI_OUT" "POS_PCROUT"
+##  [96] "PCR_VSR"    "PCR_PARA1"  "PCR_PARA2"  "PCR_PARA3"  "PCR_PARA4" 
+## [101] "PCR_ADENO"  "PCR_METAP"  "PCR_BOCA"   "PCR_RINO"   "PCR_OUTRO" 
+## [106] "DS_PCR_OUT" "CLASSI_FIN" "CLASSI_OUT" "CRITERIO"   "EVOLUCAO"  
+## [111] "DT_EVOLUCA" "DT_ENCERRA" "DT_DIGITA"  "HISTO_VGM"  "PAIS_VGM"  
+## [116] "CO_PS_VGM"  "LO_PS_VGM"  "DT_VGM"     "DT_RT_VGM"  "PCR_SARS2" 
+## [121] "PAC_COCBO"  "PAC_DSCBO"  "OUT_ANIM"   "DOR_ABD"    "FADIGA"    
+## [126] "PERD_OLFT"  "PERD_PALA"  "TOMO_RES"   "TOMO_OUT"   "DT_TOMO"   
+## [131] "TP_TES_AN"  "DT_RES_AN"  "RES_AN"     "POS_AN_FLU" "TP_FLU_AN" 
+## [136] "POS_AN_OUT" "AN_SARS2"   "AN_VSR"     "AN_PARA1"   "AN_PARA2"  
+## [141] "AN_PARA3"   "AN_ADENO"   "AN_OUTRO"   "DS_AN_OUT"  "TP_AM_SOR" 
+## [146] "SOR_OUT"    "DT_CO_SOR"  "TP_SOR"     "OUT_SOR"    "DT_RES"    
+## [151] "RES_IGG"    "RES_IGM"    "RES_IGA"    "ESTRANG"    "VACINA_COV"
+## [156] "DOSE_1_COV" "DOSE_2_COV" "DOSE_REF"   "FAB_COV_1"  "FAB_COV_2" 
+## [161] "FAB_COVREF" "LOTE_REF"   "LAB_PR_COV" "LOTE_1_COV" "LOTE_2_COV"
+## [166] "FNT_IN_COV" "dt_sint"    "dt_nasc"    "ano"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#funções que vamos usar para as medidas descritivas}
+\NormalTok{media }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(x)}
+  \FunctionTok{mean}\NormalTok{(x, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{)}
+\NormalTok{mediana }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(x)}
+  \FunctionTok{median}\NormalTok{(x, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{)}
+\NormalTok{DP }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(x)}
+  \FunctionTok{sd}\NormalTok{(x, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{)}
+\NormalTok{minimo }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(x)}
+\NormalTok{  base}\SpecialCharTok{::}\FunctionTok{min}\NormalTok{(x, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{)}
+\NormalTok{maximo }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(x)}
+\NormalTok{  base}\SpecialCharTok{::}\FunctionTok{max}\NormalTok{(x, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{)}
+\NormalTok{q25 }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(x)}
+\NormalTok{  stats}\SpecialCharTok{::}\FunctionTok{quantile}\NormalTok{(x, }\AttributeTok{p =} \FloatTok{0.25}\NormalTok{, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{)}
+\NormalTok{q75 }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(x)}
+\NormalTok{  stats}\SpecialCharTok{::}\FunctionTok{quantile}\NormalTok{(x, }\AttributeTok{p =} \FloatTok{0.75}\NormalTok{, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{)}
+\NormalTok{IQR }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(x)}
+  \FunctionTok{round}\NormalTok{(}\FunctionTok{q75}\NormalTok{(x) }\SpecialCharTok{{-}} \FunctionTok{q25}\NormalTok{(x), }\DecValTok{2}\NormalTok{)}
+\NormalTok{n }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(x)}
+  \FunctionTok{sum}\NormalTok{(}\SpecialCharTok{!}\FunctionTok{is.na}\NormalTok{(x))}
+\NormalTok{faltantes }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(x)}
+  \FunctionTok{round}\NormalTok{(}\FunctionTok{sum}\NormalTok{(}\FunctionTok{is.na}\NormalTok{(x)), }\AttributeTok{digits =} \DecValTok{0}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{filtragem-e-tratamento-dos-dados}{%
+\section{Filtragem e tratamento dos
+dados}\label{filtragem-e-tratamento-dos-dados}}
+
+A variável que indica a classificação é a \texttt{CLASSI\_FIN}, com as
+seguintes categorias: 1-SRAG por influenza, 2-SRAG por outro vírus
+respiratório, 3-SRAG por outro agente etiológico, 4-SRAG não
+especificado e 5-SRAG por COVID-19.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#tabela de frequência para a classificação}
+\NormalTok{questionr}\SpecialCharTok{::}\FunctionTok{freq}\NormalTok{(}
+\NormalTok{  dados1}\SpecialCharTok{$}\NormalTok{CLASSI\_FIN,}
+  \AttributeTok{cum =} \ConstantTok{FALSE}\NormalTok{,}
+  \AttributeTok{total =} \ConstantTok{TRUE}\NormalTok{,}
+  \AttributeTok{na.last =} \ConstantTok{FALSE}\NormalTok{,}
+  \AttributeTok{valid =} \ConstantTok{FALSE}
+\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{kable}\NormalTok{(}\AttributeTok{caption =} \StringTok{"Tabela de frequências para classificação do caso "}\NormalTok{, }
+        \AttributeTok{digits =} \DecValTok{2}\NormalTok{) }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{longtable}[]{@{}lrr@{}}
+\caption{Tabela de frequências para classificação do
+caso}\tabularnewline
+\toprule
+& n & \% \\
+\midrule
+\endfirsthead
+\toprule
+& n & \% \\
+\midrule
+\endhead
+1 & 22724 & 0.7 \\
+2 & 41575 & 1.3 \\
+3 & 11520 & 0.3 \\
+4 & 956076 & 29.0 \\
+5 & 2079283 & 63.1 \\
+NA & 184717 & 5.6 \\
+Total & 3295895 & 100.0 \\
+\bottomrule
+\end{longtable}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#codificar campo em branco para classificação como 9}
+\NormalTok{dados1}\SpecialCharTok{$}\NormalTok{CLASSI\_FIN }\OtherTok{\textless{}{-}}
+  \FunctionTok{ifelse}\NormalTok{(}\FunctionTok{is.na}\NormalTok{(dados1}\SpecialCharTok{$}\NormalTok{CLASSI\_FIN) }\SpecialCharTok{==} \ConstantTok{TRUE}\NormalTok{, }\DecValTok{9}\NormalTok{, dados1}\SpecialCharTok{$}\NormalTok{CLASSI\_FIN)}
+\end{Highlighting}
+\end{Shaded}
+
+Agora vamos filtrar os casos hospitalizados.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{dados2 }\OtherTok{\textless{}{-}}\NormalTok{ dados1 }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{filter}\NormalTok{(HOSPITAL }\SpecialCharTok{==} \DecValTok{1}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+Note também que há 3117429 casos.
+
+Casos de SRAG por COVID-19:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{dados2 }\OtherTok{\textless{}{-}}\NormalTok{ dados2 }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{filter}\NormalTok{(CLASSI\_FIN }\SpecialCharTok{==} \DecValTok{5}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+Note também que há 1989922 casos.
+
+\textbf{Tipo de diagnóstico:}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#Caso diagnosticado por PCR }
+\NormalTok{dados2 }\OtherTok{\textless{}{-}}\NormalTok{ dados2 }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{pcr\_SN =} \FunctionTok{case\_when}\NormalTok{(}
+\NormalTok{    (PCR\_SARS2 }\SpecialCharTok{==} \DecValTok{1}\NormalTok{) }\SpecialCharTok{|}
+\NormalTok{      (}
+        \FunctionTok{str\_detect}\NormalTok{(DS\_PCR\_OUT, }\StringTok{"SARS|COVID|COV|CORONA|CIVID"}\NormalTok{) }
+\NormalTok{      ) }\SpecialCharTok{\textasciitilde{}} \StringTok{"sim"}\NormalTok{,}
+    \ConstantTok{TRUE} \SpecialCharTok{\textasciitilde{}} \StringTok{"não"}
+\NormalTok{  ))}
+
+
+\CommentTok{\#Identificar se diagnóstico por sorologia}
+\NormalTok{dados2}\SpecialCharTok{$}\NormalTok{res\_igg }\OtherTok{\textless{}{-}}
+  \FunctionTok{ifelse}\NormalTok{(}\FunctionTok{is.na}\NormalTok{(dados2}\SpecialCharTok{$}\NormalTok{RES\_IGG) }\SpecialCharTok{==} \ConstantTok{TRUE}\NormalTok{, }\DecValTok{0}\NormalTok{, dados2}\SpecialCharTok{$}\NormalTok{RES\_IGG)}
+
+\NormalTok{dados2}\SpecialCharTok{$}\NormalTok{res\_igm }\OtherTok{\textless{}{-}}
+  \FunctionTok{ifelse}\NormalTok{(}\FunctionTok{is.na}\NormalTok{(dados2}\SpecialCharTok{$}\NormalTok{RES\_IGM) }\SpecialCharTok{==} \ConstantTok{TRUE}\NormalTok{, }\DecValTok{0}\NormalTok{, dados2}\SpecialCharTok{$}\NormalTok{RES\_IGM)}
+
+\NormalTok{dados2}\SpecialCharTok{$}\NormalTok{res\_iga }\OtherTok{\textless{}{-}}
+  \FunctionTok{ifelse}\NormalTok{(}\FunctionTok{is.na}\NormalTok{(dados2}\SpecialCharTok{$}\NormalTok{RES\_IGA) }\SpecialCharTok{==} \ConstantTok{TRUE}\NormalTok{, }\DecValTok{0}\NormalTok{, dados2}\SpecialCharTok{$}\NormalTok{RES\_IGA)}
+
+\NormalTok{dados2}\SpecialCharTok{$}\NormalTok{sorologia\_SN }\OtherTok{\textless{}{-}}
+  \FunctionTok{ifelse}\NormalTok{(dados2}\SpecialCharTok{$}\NormalTok{res\_igg }\SpecialCharTok{==} \DecValTok{1} \SpecialCharTok{|}
+\NormalTok{           dados2}\SpecialCharTok{$}\NormalTok{res\_igm }\SpecialCharTok{==} \DecValTok{1} \SpecialCharTok{|}\NormalTok{ dados2}\SpecialCharTok{$}\NormalTok{res\_iga }\SpecialCharTok{==} \DecValTok{1}\NormalTok{,}
+         \StringTok{"sim"}\NormalTok{,}
+         \StringTok{"não"}\NormalTok{)}
+
+\CommentTok{\#Identificar se diagnosticado por antigenio}
+\NormalTok{dados2 }\OtherTok{\textless{}{-}}\NormalTok{ dados2 }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{antigeno\_SN =} \FunctionTok{case\_when}\NormalTok{(}
+\NormalTok{    (AN\_SARS2 }\SpecialCharTok{==} \DecValTok{1}\NormalTok{) }\SpecialCharTok{|} \CommentTok{\#positivo}
+\NormalTok{      (}
+        \FunctionTok{str\_detect}\NormalTok{(DS\_AN\_OUT, }\StringTok{"SARS|COVID|COV|CORONA|CONA"}\NormalTok{) }
+\NormalTok{      )  }\SpecialCharTok{\textasciitilde{}} \StringTok{"sim"}\NormalTok{,}
+    \ConstantTok{TRUE} \SpecialCharTok{\textasciitilde{}} \StringTok{"não"}
+\NormalTok{  ))}
+\end{Highlighting}
+\end{Shaded}
+
+A variável \texttt{classi\_covid} identificao tipo de diagnóstico. Essa
+variável é válida apenas para os casos confirmados de SRAG por COVID-19
+(\texttt{CLASSI\_FIN=5}).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#Criação da variável de classificação da covid{-}19}
+\NormalTok{dados2 }\OtherTok{\textless{}{-}}\NormalTok{ dados2 }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}
+    \AttributeTok{classi\_covid =} \FunctionTok{case\_when}\NormalTok{(}
+\NormalTok{      CLASSI\_FIN }\SpecialCharTok{==} \DecValTok{5} \SpecialCharTok{\&}\NormalTok{ pcr\_SN }\SpecialCharTok{==} \StringTok{"sim"}  \SpecialCharTok{\textasciitilde{}} \StringTok{"pcr"}\NormalTok{,}
+\NormalTok{      CLASSI\_FIN }\SpecialCharTok{==} \DecValTok{5} \SpecialCharTok{\&}\NormalTok{ pcr\_SN }\SpecialCharTok{==} \StringTok{"não"} \SpecialCharTok{\&}
+\NormalTok{        antigeno\_SN }\SpecialCharTok{==} \StringTok{"sim"} \SpecialCharTok{\textasciitilde{}} \StringTok{"antigenio"}\NormalTok{,}
+\NormalTok{      CLASSI\_FIN }\SpecialCharTok{==} \DecValTok{5} \SpecialCharTok{\&}\NormalTok{ sorologia\_SN }\SpecialCharTok{==} \StringTok{"sim"} \SpecialCharTok{\&}
+\NormalTok{        antigeno\_SN }\SpecialCharTok{==} \StringTok{"não"} \SpecialCharTok{\&}
+\NormalTok{        pcr\_SN }\SpecialCharTok{==} \StringTok{"não"} \SpecialCharTok{\textasciitilde{}} \StringTok{"sorologia"}\NormalTok{,}
+\NormalTok{      CLASSI\_FIN }\SpecialCharTok{!=} \DecValTok{5} \SpecialCharTok{\textasciitilde{}} \StringTok{"não"}\NormalTok{, }\CommentTok{\#não é outro agente etiológico ou não especificado}
+      \ConstantTok{TRUE} \SpecialCharTok{\textasciitilde{}} \StringTok{"outro"}
+\NormalTok{    )}
+\NormalTok{  )}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#tabela de frequências para tipo de diagnóstico }
+\NormalTok{questionr}\SpecialCharTok{::}\FunctionTok{freq}\NormalTok{(}
+\NormalTok{  dados2}\SpecialCharTok{$}\NormalTok{classi\_covid,}
+  \AttributeTok{cum =} \ConstantTok{FALSE}\NormalTok{,}
+  \AttributeTok{total =} \ConstantTok{TRUE}\NormalTok{,}
+  \AttributeTok{na.last =} \ConstantTok{FALSE}\NormalTok{,}
+  \AttributeTok{valid =} \ConstantTok{FALSE}
+\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{kable}\NormalTok{(}\AttributeTok{caption =} \StringTok{"Tabela de frequências para o tipo de diagnóstico"}\NormalTok{, }
+        \AttributeTok{digits =} \DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{longtable}[]{@{}lrr@{}}
+\caption{Tabela de frequências para o tipo de
+diagnóstico}\tabularnewline
+\toprule
+& n & \% \\
+\midrule
+\endfirsthead
+\toprule
+& n & \% \\
+\midrule
+\endhead
+antigenio & 283436 & 14.2 \\
+outro & 362617 & 18.2 \\
+pcr & 1223235 & 61.5 \\
+sorologia & 120634 & 6.1 \\
+Total & 1989922 & 100.0 \\
+\bottomrule
+\end{longtable}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{dados2 }\OtherTok{\textless{}{-}}\NormalTok{ dados2 }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{filter}\NormalTok{(classi\_covid }\SpecialCharTok{==} \StringTok{"pcr"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+Note também que há 1223235 casos.
+
+O próximo passo é identificar as pessoas gestantes. Para isso, vamos
+analisar a variável \texttt{CS\_GESTANT}. Essa variável assume os
+valores: 1-1º Trimestre; 2-2º Trimestre; 3-3º Trimestre; 4-Idade
+Gestacional Ignorada; 5-Não; 6-Não se aplica; 9-Ignorado.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#tabela de frequência para gestação}
+\NormalTok{questionr}\SpecialCharTok{::}\FunctionTok{freq}\NormalTok{(}
+\NormalTok{  dados2}\SpecialCharTok{$}\NormalTok{CS\_GESTANT,}
+  \AttributeTok{cum =} \ConstantTok{FALSE}\NormalTok{,}
+  \AttributeTok{total =} \ConstantTok{TRUE}\NormalTok{,}
+  \AttributeTok{na.last =} \ConstantTok{FALSE}\NormalTok{,}
+  \AttributeTok{valid =} \ConstantTok{FALSE}
+\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{kable}\NormalTok{(}\AttributeTok{caption =} \StringTok{"Tabela de frequências para variável }
+\StringTok{        sobre gestação"}\NormalTok{, }\AttributeTok{digits =} \DecValTok{2}\NormalTok{) }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{longtable}[]{@{}lrr@{}}
+\caption{Tabela de frequências para variável sobre
+gestação}\tabularnewline
+\toprule
+& n & \% \\
+\midrule
+\endfirsthead
+\toprule
+& n & \% \\
+\midrule
+\endhead
+0 & 99 & 0.0 \\
+1 & 894 & 0.1 \\
+2 & 2567 & 0.2 \\
+3 & 6242 & 0.5 \\
+4 & 441 & 0.0 \\
+5 & 390712 & 31.9 \\
+6 & 764197 & 62.5 \\
+9 & 58083 & 4.7 \\
+Total & 1223235 & 100.0 \\
+\bottomrule
+\end{longtable}
+
+Há 99 casos com \texttt{CS\_GESTANT=0}, em que a categoria 0 não tem
+código no dicionário.
+
+Vamos ver se há alguma inconsistência ao analisar essa variável
+conjuntamente com \texttt{CS\_SEXO} (F-feminino, M-masculino e
+I-ignorado).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#tabela de frequência para sexo}
+\NormalTok{questionr}\SpecialCharTok{::}\FunctionTok{freq}\NormalTok{(}
+\NormalTok{  dados2}\SpecialCharTok{$}\NormalTok{CS\_SEXO,}
+  \AttributeTok{cum =} \ConstantTok{FALSE}\NormalTok{,}
+  \AttributeTok{total =} \ConstantTok{TRUE}\NormalTok{,}
+  \AttributeTok{na.last =} \ConstantTok{FALSE}\NormalTok{,}
+  \AttributeTok{valid =} \ConstantTok{FALSE}
+\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{kable}\NormalTok{(}\AttributeTok{caption =} \StringTok{"Tabela de frequências para sexo"}\NormalTok{, }\AttributeTok{digits =} \DecValTok{2}\NormalTok{) }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{longtable}[]{@{}lrr@{}}
+\caption{Tabela de frequências para sexo}\tabularnewline
+\toprule
+& n & \% \\
+\midrule
+\endfirsthead
+\toprule
+& n & \% \\
+\midrule
+\endhead
+F & 543551 & 44.4 \\
+I & 133 & 0.0 \\
+M & 679551 & 55.6 \\
+Total & 1223235 & 100.0 \\
+\bottomrule
+\end{longtable}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#tabela cruzada para gestação e sexo}
+\FunctionTok{table}\NormalTok{(dados2}\SpecialCharTok{$}\NormalTok{CS\_GESTANT, dados2}\SpecialCharTok{$}\NormalTok{CS\_SEXO)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##    
+##          F      I      M
+##   0     29     40     30
+##   1    894      0      0
+##   2   2567      0      0
+##   3   6242      0      0
+##   4    441      0      0
+##   5 389152     19   1541
+##   6  86249     59 677889
+##   9  57977     15     91
+\end{verbatim}
+
+Veja que há 0 casos de \texttt{CS\_SEXO=M} com
+\texttt{CS\_GESTANT=1,2,3\ ou\ 4}, como esperado.
+
+A variável indicadora de puerpério é \texttt{PUERPERA}, com categorias
+1-sim, 2-não e 9-Ignorado.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#tabela de frequencias para puerpério}
+\NormalTok{questionr}\SpecialCharTok{::}\FunctionTok{freq}\NormalTok{(}
+\NormalTok{  dados2}\SpecialCharTok{$}\NormalTok{PUERPERA,}
+  \AttributeTok{cum =} \ConstantTok{FALSE}\NormalTok{,}
+  \AttributeTok{total =} \ConstantTok{TRUE}\NormalTok{,}
+  \AttributeTok{na.last =} \ConstantTok{FALSE}\NormalTok{,}
+  \AttributeTok{valid =} \ConstantTok{FALSE}
+\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{kable}\NormalTok{(}\AttributeTok{caption =} \StringTok{"Tabela de frequências para variável indicadora de puérpera"}\NormalTok{, }
+        \AttributeTok{digits =} \DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{longtable}[]{@{}lrr@{}}
+\caption{Tabela de frequências para variável indicadora de
+puérpera}\tabularnewline
+\toprule
+& n & \% \\
+\midrule
+\endfirsthead
+\toprule
+& n & \% \\
+\midrule
+\endhead
+1 & 3260 & 0.3 \\
+2 & 458873 & 37.5 \\
+9 & 11631 & 1.0 \\
+NA & 749471 & 61.3 \\
+Total & 1223235 & 100.0 \\
+\bottomrule
+\end{longtable}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#tabela cruzada de puerpério e sexo}
+\FunctionTok{table}\NormalTok{(dados2}\SpecialCharTok{$}\NormalTok{PUERPERA, dados2}\SpecialCharTok{$}\NormalTok{CS\_SEXO)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##    
+##          F      I      M
+##   1   3217      0     43
+##   2 216447     34 242392
+##   9   5318      5   6308
+\end{verbatim}
+
+Veja que há 43 casos de \texttt{CS\_SEXO=M} com \texttt{PUERPERA\ =\ 1}
+casos de puérpera e sexo masculino.
+
+A próxima seleção é considerar só as pessoas do sexo feminino:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Filtragem dos casos do sexo feminino}
+\NormalTok{dados3 }\OtherTok{\textless{}{-}}\NormalTok{ dados2 }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{filter}\NormalTok{(CS\_SEXO }\SpecialCharTok{==} \StringTok{"F"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+Após essa seleção foram selecionados 543551 casos.
+
+A próxima seleção é considerar gestantes e puérperas com idade maior que
+10 e menor ou igual a 55 anos.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#criando a nossa variável de ano como a diferença entre dt\_sint e dt\_nasc. }
+\CommentTok{\#Nos casos sem dt\_nasc, consideramos }
+\CommentTok{\#o campo NU\_IDADE\_N}
+\NormalTok{dados3 }\OtherTok{\textless{}{-}}\NormalTok{ dados3 }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{mutate}\NormalTok{(}
+         \AttributeTok{idade =} \FunctionTok{as.period}\NormalTok{(}\FunctionTok{interval}\NormalTok{(}\AttributeTok{start =}\NormalTok{ dt\_nasc, }\AttributeTok{end =}\NormalTok{ dt\_sint))}\SpecialCharTok{$}\NormalTok{year, }
+         \AttributeTok{idade\_anos =} \FunctionTok{ifelse}\NormalTok{(}\FunctionTok{is.na}\NormalTok{(idade), NU\_IDADE\_N, idade)}
+\NormalTok{  )}
+
+\CommentTok{\# Filtragem dos casos com 55 anos ou menos}
+\NormalTok{dados3 }\OtherTok{\textless{}{-}}\NormalTok{ dados3 }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{filter}\NormalTok{(idade\_anos }\SpecialCharTok{\textgreater{}} \DecValTok{9} \SpecialCharTok{\&}\NormalTok{ idade\_anos }\SpecialCharTok{\textless{}=} \DecValTok{49}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+Após essa seleção foram selecionados 149241 casos.
+
+Agora vamos criar a variável de trimestre gestacional ou puerpério. Veja
+que para puerpério (\texttt{puerp}) são considerados os casos não
+gestante ou ignorado com \texttt{PUERPERA\ =\ 1}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#Criação da variável classi\_gesta\_puerp para o momento gestacional ou puerpério}
+\NormalTok{dados3 }\OtherTok{\textless{}{-}}\NormalTok{ dados3 }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}
+    \AttributeTok{classi\_gesta\_puerp =} \FunctionTok{case\_when}\NormalTok{(}
+\NormalTok{      CS\_GESTANT }\SpecialCharTok{==} \DecValTok{1}  \SpecialCharTok{\textasciitilde{}} \StringTok{"1tri"}\NormalTok{,}
+\NormalTok{      CS\_GESTANT }\SpecialCharTok{==} \DecValTok{2}  \SpecialCharTok{\textasciitilde{}} \StringTok{"2tri"}\NormalTok{,}
+\NormalTok{      CS\_GESTANT }\SpecialCharTok{==} \DecValTok{3}  \SpecialCharTok{\textasciitilde{}} \StringTok{"3tri"}\NormalTok{,}
+\NormalTok{      CS\_GESTANT }\SpecialCharTok{==} \DecValTok{4}  \SpecialCharTok{\textasciitilde{}} \StringTok{"IG\_ig"}\NormalTok{,}
+\NormalTok{      CS\_GESTANT }\SpecialCharTok{==} \DecValTok{5} \SpecialCharTok{\&}
+\NormalTok{        PUERPERA }\SpecialCharTok{==} \DecValTok{1} \SpecialCharTok{\textasciitilde{}} \StringTok{"puerp"}\NormalTok{,}
+\NormalTok{      CS\_GESTANT }\SpecialCharTok{==} \DecValTok{9} \SpecialCharTok{\&}\NormalTok{ PUERPERA }\SpecialCharTok{==} \DecValTok{1} \SpecialCharTok{\textasciitilde{}} \StringTok{"puerp"}\NormalTok{,}
+      \ConstantTok{TRUE} \SpecialCharTok{\textasciitilde{}} \StringTok{"não"}
+\NormalTok{    )}
+\NormalTok{  )}
+\end{Highlighting}
+\end{Shaded}
+
+A última filtragem consiste em selecionar os casos de gestantes ou
+puérperas.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#Seleção só dos casos de gestantes ou puérperas}
+\NormalTok{dados4 }\OtherTok{\textless{}{-}}\NormalTok{ dados3 }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{filter}\NormalTok{(classi\_gesta\_puerp }\SpecialCharTok{!=} \StringTok{"não"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+Ficamos com 12364 casos de gestantes e puérperas, distribuídas nos
+seguintes grupos de trimestre gestacional e puerpério:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#tabela de frequência para grupo gestacional}
+\NormalTok{questionr}\SpecialCharTok{::}\FunctionTok{freq}\NormalTok{(}
+\NormalTok{  dados4}\SpecialCharTok{$}\NormalTok{classi\_gesta\_puerp,}
+  \AttributeTok{cum =} \ConstantTok{FALSE}\NormalTok{,}
+  \AttributeTok{total =} \ConstantTok{TRUE}\NormalTok{,}
+  \AttributeTok{na.last =} \ConstantTok{FALSE}\NormalTok{,}
+  \AttributeTok{valid =} \ConstantTok{FALSE}
+\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{kable}\NormalTok{(}\AttributeTok{caption =} \StringTok{"Tabela de frequências para variável}
+\StringTok{        de trimestre gestacional ou puerpério"}\NormalTok{, }\AttributeTok{digits =} \DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{longtable}[]{@{}lrr@{}}
+\caption{Tabela de frequências para variável de trimestre gestacional ou
+puerpério}\tabularnewline
+\toprule
+& n & \% \\
+\midrule
+\endfirsthead
+\toprule
+& n & \% \\
+\midrule
+\endhead
+1tri & 868 & 7.0 \\
+2tri & 2517 & 20.4 \\
+3tri & 6225 & 50.3 \\
+IG\_ig & 393 & 3.2 \\
+puerp & 2361 & 19.1 \\
+Total & 12364 & 100.0 \\
+\bottomrule
+\end{longtable}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{dados5 }\OtherTok{\textless{}{-}}\NormalTok{ dados4}
+\end{Highlighting}
+\end{Shaded}
+
+Agora vamos criar a variável ``variante''
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#criando variável chamada variante(original,gama,delta,omicron)}
+\NormalTok{in\_gama }\OtherTok{\textless{}{-}} \FunctionTok{as.Date}\NormalTok{(}\StringTok{"01{-}02{-}2021"}\NormalTok{,}\AttributeTok{format=}\StringTok{"\%d{-}\%m{-}\%Y"}\NormalTok{)}
+\NormalTok{in\_delta }\OtherTok{\textless{}{-}} \FunctionTok{as.Date}\NormalTok{(}\StringTok{"01{-}08{-}2021"}\NormalTok{,}\AttributeTok{format=}\StringTok{"\%d{-}\%m{-}\%Y"}\NormalTok{)}
+\NormalTok{in\_ommi }\OtherTok{\textless{}{-}} \FunctionTok{as.Date}\NormalTok{(}\StringTok{"01{-}01{-}2022"}\NormalTok{,}\AttributeTok{format=}\StringTok{"\%d{-}\%m{-}\%Y"}\NormalTok{)}
+\NormalTok{dados5 }\OtherTok{\textless{}{-}}\NormalTok{ dados5 }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{variante =} \FunctionTok{case\_when}\NormalTok{(dt\_sint }\SpecialCharTok{\textless{}}\NormalTok{ in\_gama }\SpecialCharTok{\textasciitilde{}} \StringTok{"original"}\NormalTok{,}
+\NormalTok{                              dt\_sint }\SpecialCharTok{\textgreater{}=}\NormalTok{ in\_gama }\SpecialCharTok{\&}\NormalTok{ dt\_sint }\SpecialCharTok{\textless{}}\NormalTok{ in\_delta }\SpecialCharTok{\textasciitilde{}} \StringTok{"gama"}\NormalTok{,}
+\NormalTok{                              dt\_sint }\SpecialCharTok{\textgreater{}=}\NormalTok{ in\_delta }\SpecialCharTok{\&}\NormalTok{ dt\_sint }\SpecialCharTok{\textless{}}\NormalTok{ in\_ommi }\SpecialCharTok{\textasciitilde{}} \StringTok{"delta"}\NormalTok{,}
+\NormalTok{                              dt\_sint }\SpecialCharTok{\textgreater{}=}\NormalTok{ in\_ommi }\SpecialCharTok{\textasciitilde{}} \StringTok{"omicron"}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{dados5 }\OtherTok{\textless{}{-}}\NormalTok{ dados5 }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}
+    \AttributeTok{gestante\_puerp =} \FunctionTok{case\_when}\NormalTok{(}
+\NormalTok{      CS\_GESTANT }\SpecialCharTok{==} \DecValTok{1} \SpecialCharTok{|}\NormalTok{ CS\_GESTANT }\SpecialCharTok{==} \DecValTok{2} \SpecialCharTok{|}\NormalTok{  CS\_GESTANT }\SpecialCharTok{==} \DecValTok{3} \SpecialCharTok{|}\NormalTok{ CS\_GESTANT }\SpecialCharTok{==} \DecValTok{4}  \SpecialCharTok{\textasciitilde{}} \StringTok{"gestante"}\NormalTok{,}
+\NormalTok{      CS\_GESTANT }\SpecialCharTok{==} \DecValTok{5} \SpecialCharTok{\&}
+\NormalTok{        PUERPERA }\SpecialCharTok{==} \DecValTok{1} \SpecialCharTok{\textasciitilde{}} \StringTok{"puerpera"}\NormalTok{,}
+\NormalTok{      CS\_GESTANT }\SpecialCharTok{==} \DecValTok{9} \SpecialCharTok{\&}\NormalTok{ PUERPERA }\SpecialCharTok{==} \DecValTok{1} \SpecialCharTok{\textasciitilde{}} \StringTok{"puerpera"}\NormalTok{,}
+      \ConstantTok{TRUE} \SpecialCharTok{\textasciitilde{}} \StringTok{"não"}
+\NormalTok{    )}
+\NormalTok{  )}
+
+\FunctionTok{ctable}\NormalTok{(dados5}\SpecialCharTok{$}\NormalTok{variante,dados5}\SpecialCharTok{$}\NormalTok{gestante\_puerp)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Cross-Tabulation, Row Proportions  
+## variante * gestante_puerp  
+## Data Frame: dados5  
+## 
+## ---------- ---------------- --------------- -------------- ----------------
+##              gestante_puerp        gestante       puerpera            Total
+##   variante                                                                 
+##      delta                      576 (83.4%)    115 (16.6%)     691 (100.0%)
+##       gama                     4603 (81.8%)   1025 (18.2%)    5628 (100.0%)
+##    omicron                     1020 (78.2%)    284 (21.8%)    1304 (100.0%)
+##   original                     3804 (80.2%)    937 (19.8%)    4741 (100.0%)
+##      Total                    10003 (80.9%)   2361 (19.1%)   12364 (100.0%)
+## ---------- ---------------- --------------- -------------- ----------------
+\end{verbatim}
+
+No que segue tratamos as variáveis consideradas no Observatório
+Obstétrico Covid-19.
+
+\textbf{Região do Brasil:}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#Criação da variável de região}
+\NormalTok{regions }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(state) \{}
+\NormalTok{  southeast }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"SP"}\NormalTok{, }\StringTok{"RJ"}\NormalTok{, }\StringTok{"ES"}\NormalTok{, }\StringTok{"MG"}\NormalTok{)}
+\NormalTok{  south }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"PR"}\NormalTok{, }\StringTok{"SC"}\NormalTok{, }\StringTok{"RS"}\NormalTok{)}
+\NormalTok{  central }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"GO"}\NormalTok{, }\StringTok{"MT"}\NormalTok{, }\StringTok{"MS"}\NormalTok{, }\StringTok{"DF"}\NormalTok{)}
+\NormalTok{  northeast }\OtherTok{\textless{}{-}}
+    \FunctionTok{c}\NormalTok{(}\StringTok{"AL"}\NormalTok{, }\StringTok{"BA"}\NormalTok{, }\StringTok{"CE"}\NormalTok{, }\StringTok{"MA"}\NormalTok{, }\StringTok{"PB"}\NormalTok{, }\StringTok{"PE"}\NormalTok{, }\StringTok{"PI"}\NormalTok{, }\StringTok{"RN"}\NormalTok{, }\StringTok{"SE"}\NormalTok{)}
+\NormalTok{  north }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"AC"}\NormalTok{, }\StringTok{"AP"}\NormalTok{, }\StringTok{"AM"}\NormalTok{, }\StringTok{"PA"}\NormalTok{, }\StringTok{"RO"}\NormalTok{, }\StringTok{"RR"}\NormalTok{, }\StringTok{"TO"}\NormalTok{)}
+\NormalTok{  out }\OtherTok{\textless{}{-}}
+    \FunctionTok{ifelse}\NormalTok{(}\FunctionTok{any}\NormalTok{(state }\SpecialCharTok{==}\NormalTok{ southeast),}
+           \StringTok{"southeast"}\NormalTok{,}
+           \FunctionTok{ifelse}\NormalTok{(}\FunctionTok{any}\NormalTok{(state }\SpecialCharTok{==}\NormalTok{ south),}
+                  \StringTok{"south"}\NormalTok{,}
+                  \FunctionTok{ifelse}\NormalTok{(}
+                    \FunctionTok{any}\NormalTok{(state }\SpecialCharTok{==}\NormalTok{ central),}
+                    \StringTok{"central"}\NormalTok{,}
+                    \FunctionTok{ifelse}\NormalTok{(}\FunctionTok{any}\NormalTok{(state }\SpecialCharTok{==}\NormalTok{ northeast),}
+                           \StringTok{"northeast"}\NormalTok{, }\StringTok{"north"}\NormalTok{)}
+\NormalTok{                  )))}
+  \FunctionTok{return}\NormalTok{(out)}
+\NormalTok{\}}
+
+\NormalTok{dados5}\SpecialCharTok{$}\NormalTok{region }\OtherTok{\textless{}{-}} \FunctionTok{sapply}\NormalTok{(dados5}\SpecialCharTok{$}\NormalTok{SG\_UF, regions)}
+\NormalTok{dados5}\SpecialCharTok{$}\NormalTok{region }\OtherTok{\textless{}{-}}
+  \FunctionTok{ifelse}\NormalTok{(}\FunctionTok{is.na}\NormalTok{(dados5}\SpecialCharTok{$}\NormalTok{region) }\SpecialCharTok{==} \ConstantTok{TRUE}\NormalTok{, }\DecValTok{0}\NormalTok{, dados5}\SpecialCharTok{$}\NormalTok{region)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#tabela de frequências para região}
+\NormalTok{questionr}\SpecialCharTok{::}\FunctionTok{freq}\NormalTok{(}
+\NormalTok{  dados5}\SpecialCharTok{$}\NormalTok{region,}
+  \AttributeTok{cum =} \ConstantTok{FALSE}\NormalTok{,}
+  \AttributeTok{total =} \ConstantTok{TRUE}\NormalTok{,}
+  \AttributeTok{na.last =} \ConstantTok{FALSE}\NormalTok{,}
+  \AttributeTok{valid =} \ConstantTok{FALSE}
+\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{kable}\NormalTok{(}\AttributeTok{caption =} \StringTok{"Tabela de frequências para a região do Brasil"}\NormalTok{, }\AttributeTok{digits =} \DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{longtable}[]{@{}lrr@{}}
+\caption{Tabela de frequências para a região do Brasil}\tabularnewline
+\toprule
+& n & \% \\
+\midrule
+\endfirsthead
+\toprule
+& n & \% \\
+\midrule
+\endhead
+central & 1590 & 12.9 \\
+north & 782 & 6.3 \\
+northeast & 2182 & 17.6 \\
+south & 2352 & 19.0 \\
+southeast & 5458 & 44.1 \\
+Total & 12364 & 100.0 \\
+\bottomrule
+\end{longtable}
+
+Veja que há 0 casos sem a informação da região do país (codificado como
+0).
+
+No que segue, tratamos as variáveis de caracterização, sintomas,
+comorbidades, desfechos e variáveis de tempo.
+
+\hypertarget{variuxe1veis-de-caracterizauxe7uxe3o}{%
+\subsection{Variáveis de
+caracterização}\label{variuxe1veis-de-caracterizauxe7uxe3o}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#Raça}
+\NormalTok{dados5 }\OtherTok{\textless{}{-}}\NormalTok{  dados5 }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}
+    \AttributeTok{raca =} \FunctionTok{case\_when}\NormalTok{(}
+\NormalTok{      CS\_RACA }\SpecialCharTok{==} \DecValTok{1} \SpecialCharTok{\textasciitilde{}} \StringTok{"branca"}\NormalTok{,}
+\NormalTok{      CS\_RACA }\SpecialCharTok{==} \DecValTok{2} \SpecialCharTok{\textasciitilde{}} \StringTok{"preta"}\NormalTok{,}
+\NormalTok{      CS\_RACA }\SpecialCharTok{==} \DecValTok{3} \SpecialCharTok{\textasciitilde{}} \StringTok{"amarela"}\NormalTok{,}
+\NormalTok{      CS\_RACA }\SpecialCharTok{==} \DecValTok{4} \SpecialCharTok{\textasciitilde{}} \StringTok{"parda"}\NormalTok{,}
+\NormalTok{      CS\_RACA }\SpecialCharTok{==} \DecValTok{5} \SpecialCharTok{\textasciitilde{}} \StringTok{"indigena"}\NormalTok{,}
+      \ConstantTok{TRUE} \SpecialCharTok{\textasciitilde{}} \ConstantTok{NA\_character\_}
+\NormalTok{    )}
+\NormalTok{  )}
+
+\CommentTok{\#Escolaridade}
+\NormalTok{dados5 }\OtherTok{\textless{}{-}}\NormalTok{  dados5 }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}
+    \AttributeTok{escol =} \FunctionTok{case\_when}\NormalTok{(}
+\NormalTok{      CS\_ESCOL\_N }\SpecialCharTok{==} \DecValTok{0} \SpecialCharTok{\textasciitilde{}} \StringTok{"sem escol"}\NormalTok{,}
+\NormalTok{      CS\_ESCOL\_N }\SpecialCharTok{==} \DecValTok{1} \SpecialCharTok{\textasciitilde{}} \StringTok{"fund1"}\NormalTok{,}
+\NormalTok{      CS\_ESCOL\_N }\SpecialCharTok{==} \DecValTok{2} \SpecialCharTok{\textasciitilde{}} \StringTok{"fund2"}\NormalTok{,}
+\NormalTok{      CS\_ESCOL\_N }\SpecialCharTok{==} \DecValTok{3} \SpecialCharTok{\textasciitilde{}} \StringTok{"medio"}\NormalTok{,}
+\NormalTok{      CS\_ESCOL\_N }\SpecialCharTok{==} \DecValTok{4} \SpecialCharTok{\textasciitilde{}} \StringTok{"superior"}\NormalTok{,}
+      \ConstantTok{TRUE} \SpecialCharTok{\textasciitilde{}} \ConstantTok{NA\_character\_}
+\NormalTok{    )}
+\NormalTok{  )}
+
+\CommentTok{\#Faixa etária}
+\NormalTok{dados5 }\OtherTok{\textless{}{-}}\NormalTok{  dados5 }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}
+    \AttributeTok{faixa\_et =} \FunctionTok{case\_when}\NormalTok{(}
+\NormalTok{      NU\_IDADE\_N }\SpecialCharTok{\textless{}=} \DecValTok{19} \SpecialCharTok{\textasciitilde{}} \StringTok{"\textless{}20"}\NormalTok{,}
+\NormalTok{      NU\_IDADE\_N }\SpecialCharTok{\textgreater{}=} \DecValTok{20}
+      \SpecialCharTok{\&}\NormalTok{ NU\_IDADE\_N }\SpecialCharTok{\textless{}=} \DecValTok{34} \SpecialCharTok{\textasciitilde{}} \StringTok{"20{-}34"}\NormalTok{,}
+\NormalTok{      NU\_IDADE\_N }\SpecialCharTok{\textgreater{}=} \DecValTok{35} \SpecialCharTok{\textasciitilde{}} \StringTok{"\textgreater{}=35"}\NormalTok{,}
+      \ConstantTok{TRUE} \SpecialCharTok{\textasciitilde{}} \ConstantTok{NA\_character\_}
+\NormalTok{    )}
+\NormalTok{  )}
+\NormalTok{dados5}\SpecialCharTok{$}\NormalTok{faixa\_et }\OtherTok{\textless{}{-}}
+  \FunctionTok{factor}\NormalTok{(dados5}\SpecialCharTok{$}\NormalTok{faixa\_et, }\AttributeTok{levels =} \FunctionTok{c}\NormalTok{(}\StringTok{"\textless{}20"}\NormalTok{, }\StringTok{"20{-}34"}\NormalTok{, }\StringTok{"\textgreater{}=35"}\NormalTok{))}
+
+\CommentTok{\#Internação no hospital}
+\NormalTok{dados5 }\OtherTok{\textless{}{-}}\NormalTok{  dados5 }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{hospital =} \FunctionTok{case\_when}\NormalTok{(HOSPITAL }\SpecialCharTok{==} \DecValTok{1} \SpecialCharTok{\textasciitilde{}} \StringTok{"sim"}\NormalTok{,}
+\NormalTok{                              HOSPITAL }\SpecialCharTok{==} \DecValTok{2} \SpecialCharTok{\textasciitilde{}} \StringTok{"não"}\NormalTok{,}
+                              \ConstantTok{TRUE} \SpecialCharTok{\textasciitilde{}} \ConstantTok{NA\_character\_}\NormalTok{))}
+
+\CommentTok{\#Histórico de viagem}
+\NormalTok{dados5 }\OtherTok{\textless{}{-}}\NormalTok{  dados5 }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{hist\_viagem =} \FunctionTok{case\_when}\NormalTok{(HISTO\_VGM }\SpecialCharTok{==} \DecValTok{1} \SpecialCharTok{\textasciitilde{}} \StringTok{"sim"}\NormalTok{,}
+\NormalTok{                                 HISTO\_VGM }\SpecialCharTok{==} \DecValTok{2} \SpecialCharTok{\textasciitilde{}} \StringTok{"não"}\NormalTok{,}
+                                 \ConstantTok{TRUE} \SpecialCharTok{\textasciitilde{}} \ConstantTok{NA\_character\_}\NormalTok{))}
+
+\CommentTok{\#Síndrome gripal evoluída para SRAG}
+\NormalTok{dados5 }\OtherTok{\textless{}{-}}\NormalTok{  dados5 }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{sg\_para\_srag =} \FunctionTok{case\_when}\NormalTok{(SURTO\_SG }\SpecialCharTok{==} \DecValTok{1} \SpecialCharTok{\textasciitilde{}} \StringTok{"sim"}\NormalTok{,}
+\NormalTok{                                  SURTO\_SG }\SpecialCharTok{==} \DecValTok{2} \SpecialCharTok{\textasciitilde{}} \StringTok{"não"}\NormalTok{,}
+                                  \ConstantTok{TRUE} \SpecialCharTok{\textasciitilde{}} \ConstantTok{NA\_character\_}\NormalTok{))}
+
+\CommentTok{\#Infecção adquirida no hospital}
+\NormalTok{dados5 }\OtherTok{\textless{}{-}}\NormalTok{  dados5 }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{inf\_inter =} \FunctionTok{case\_when}\NormalTok{(NOSOCOMIAL }\SpecialCharTok{==} \DecValTok{1} \SpecialCharTok{\textasciitilde{}} \StringTok{"sim"}\NormalTok{,}
+\NormalTok{                               NOSOCOMIAL }\SpecialCharTok{==} \DecValTok{2} \SpecialCharTok{\textasciitilde{}} \StringTok{"não"}\NormalTok{,}
+                               \ConstantTok{TRUE} \SpecialCharTok{\textasciitilde{}} \ConstantTok{NA\_character\_}\NormalTok{))}
+
+\CommentTok{\#Contato com ave ou suíno}
+\NormalTok{dados5 }\OtherTok{\textless{}{-}}\NormalTok{  dados5 }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{cont\_ave\_suino =} \FunctionTok{case\_when}\NormalTok{(AVE\_SUINO }\SpecialCharTok{==} \DecValTok{1} \SpecialCharTok{\textasciitilde{}} \StringTok{"sim"}\NormalTok{,}
+\NormalTok{                                    AVE\_SUINO }\SpecialCharTok{==} \DecValTok{2} \SpecialCharTok{\textasciitilde{}} \StringTok{"não"}\NormalTok{,}
+                                    \ConstantTok{TRUE} \SpecialCharTok{\textasciitilde{}} \ConstantTok{NA\_character\_}\NormalTok{))}
+
+\CommentTok{\#Vacina para gripe}
+\NormalTok{dados5 }\OtherTok{\textless{}{-}}\NormalTok{  dados5 }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{vacina =} \FunctionTok{case\_when}\NormalTok{(VACINA }\SpecialCharTok{==} \DecValTok{1} \SpecialCharTok{\textasciitilde{}} \StringTok{"sim"}\NormalTok{,}
+\NormalTok{                            VACINA }\SpecialCharTok{==} \DecValTok{2} \SpecialCharTok{\textasciitilde{}} \StringTok{"não"}\NormalTok{,}
+                            \ConstantTok{TRUE} \SpecialCharTok{\textasciitilde{}} \ConstantTok{NA\_character\_}\NormalTok{))}
+
+\NormalTok{dados5 }\OtherTok{\textless{}{-}}\NormalTok{  dados5 }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{vacina\_cov =} \FunctionTok{case\_when}\NormalTok{(VACINA\_COV }\SpecialCharTok{==} \DecValTok{1} \SpecialCharTok{\textasciitilde{}} \StringTok{"sim"}\NormalTok{,}
+\NormalTok{                            VACINA\_COV }\SpecialCharTok{==} \DecValTok{2} \SpecialCharTok{\textasciitilde{}} \StringTok{"não"}\NormalTok{,}
+                            \ConstantTok{TRUE} \SpecialCharTok{\textasciitilde{}} \ConstantTok{NA\_character\_}\NormalTok{))}
+
+\CommentTok{\#Antiviral}
+\NormalTok{dados5 }\OtherTok{\textless{}{-}}\NormalTok{  dados5 }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}
+    \AttributeTok{antiviral =} \FunctionTok{case\_when}\NormalTok{(}
+\NormalTok{      ANTIVIRAL }\SpecialCharTok{==} \DecValTok{1} \SpecialCharTok{\textasciitilde{}} \StringTok{"Oseltamivir"}\NormalTok{,}
+\NormalTok{      ANTIVIRAL }\SpecialCharTok{==} \DecValTok{2} \SpecialCharTok{\textasciitilde{}} \StringTok{"Zanamivir"}\NormalTok{,}
+      \ConstantTok{TRUE} \SpecialCharTok{\textasciitilde{}} \ConstantTok{NA\_character\_}
+\NormalTok{    )}
+\NormalTok{  )}
+
+\CommentTok{\#Zona de residência}
+\NormalTok{dados5 }\OtherTok{\textless{}{-}}\NormalTok{  dados5 }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{zona =} \FunctionTok{case\_when}\NormalTok{(CS\_ZONA }\SpecialCharTok{==} \DecValTok{1} \SpecialCharTok{\textasciitilde{}} \StringTok{"urbana"}\NormalTok{,}
+\NormalTok{                          CS\_ZONA }\SpecialCharTok{==} \DecValTok{2} \SpecialCharTok{\textasciitilde{}} \StringTok{"rural"}\NormalTok{,}
+\NormalTok{                          CS\_ZONA }\SpecialCharTok{==} \DecValTok{3} \SpecialCharTok{\textasciitilde{}} \StringTok{"periurbana"}\NormalTok{,}
+                                  \ConstantTok{TRUE} \SpecialCharTok{\textasciitilde{}} \ConstantTok{NA\_character\_}\NormalTok{))}
+
+
+\CommentTok{\#Se mudança de município para atendimento}
+\NormalTok{dados5 }\OtherTok{\textless{}{-}}\NormalTok{ dados5 }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{mudou\_muni =} \FunctionTok{case\_when}\NormalTok{((CO\_MUN\_RES }\SpecialCharTok{==}\NormalTok{ CO\_MU\_INTE) }\SpecialCharTok{\&}
+                                  \SpecialCharTok{!}\FunctionTok{is.na}\NormalTok{(CO\_MU\_INTE) }\SpecialCharTok{\&}
+                                  \SpecialCharTok{!}\FunctionTok{is.na}\NormalTok{(CO\_MUN\_RES) }\SpecialCharTok{\textasciitilde{}} \StringTok{"não"}\NormalTok{,}
+\NormalTok{                                (CO\_MUN\_RES }\SpecialCharTok{!=}\NormalTok{ CO\_MU\_INTE) }\SpecialCharTok{\&}
+                                  \SpecialCharTok{!}\FunctionTok{is.na}\NormalTok{(CO\_MU\_INTE) }\SpecialCharTok{\&}
+                                  \SpecialCharTok{!}\FunctionTok{is.na}\NormalTok{(CO\_MUN\_RES) }\SpecialCharTok{\textasciitilde{}} \StringTok{"sim"}\NormalTok{,}
+                                \ConstantTok{TRUE} \SpecialCharTok{\textasciitilde{}} \ConstantTok{NA\_character\_}\NormalTok{)}
+\NormalTok{  )}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{sintomas}{%
+\subsection{Sintomas}\label{sintomas}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#Febre}
+\NormalTok{dados5 }\OtherTok{\textless{}{-}}\NormalTok{  dados5 }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{febre =} \FunctionTok{case\_when}\NormalTok{(FEBRE }\SpecialCharTok{==} \DecValTok{1} \SpecialCharTok{\textasciitilde{}} \StringTok{"sim"}\NormalTok{,}
+\NormalTok{                           FEBRE }\SpecialCharTok{==} \DecValTok{2} \SpecialCharTok{\textasciitilde{}} \StringTok{"não"}\NormalTok{,}
+                           \ConstantTok{TRUE} \SpecialCharTok{\textasciitilde{}} \ConstantTok{NA\_character\_}\NormalTok{))}
+
+\CommentTok{\#Tosse}
+\NormalTok{dados5 }\OtherTok{\textless{}{-}}\NormalTok{  dados5 }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{tosse =} \FunctionTok{case\_when}\NormalTok{(TOSSE }\SpecialCharTok{==} \DecValTok{1} \SpecialCharTok{\textasciitilde{}} \StringTok{"sim"}\NormalTok{,}
+\NormalTok{                           TOSSE }\SpecialCharTok{==} \DecValTok{2} \SpecialCharTok{\textasciitilde{}} \StringTok{"não"}\NormalTok{,}
+                           \ConstantTok{TRUE} \SpecialCharTok{\textasciitilde{}} \ConstantTok{NA\_character\_}\NormalTok{))}
+
+\CommentTok{\#Garganta}
+\NormalTok{dados5 }\OtherTok{\textless{}{-}}\NormalTok{  dados5 }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{garganta =} \FunctionTok{case\_when}\NormalTok{(GARGANTA }\SpecialCharTok{==} \DecValTok{1} \SpecialCharTok{\textasciitilde{}} \StringTok{"sim"}\NormalTok{,}
+\NormalTok{                              GARGANTA }\SpecialCharTok{==} \DecValTok{2} \SpecialCharTok{\textasciitilde{}} \StringTok{"não"}\NormalTok{,}
+                              \ConstantTok{TRUE} \SpecialCharTok{\textasciitilde{}} \ConstantTok{NA\_character\_}\NormalTok{))}
+
+\CommentTok{\#Dispneia}
+\NormalTok{dados5 }\OtherTok{\textless{}{-}}\NormalTok{  dados5 }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{dispneia =} \FunctionTok{case\_when}\NormalTok{(DISPNEIA }\SpecialCharTok{==} \DecValTok{1} \SpecialCharTok{\textasciitilde{}} \StringTok{"sim"}\NormalTok{,}
+\NormalTok{                              DISPNEIA }\SpecialCharTok{==} \DecValTok{2} \SpecialCharTok{\textasciitilde{}} \StringTok{"não"}\NormalTok{,}
+                              \ConstantTok{TRUE} \SpecialCharTok{\textasciitilde{}} \ConstantTok{NA\_character\_}\NormalTok{))}
+
+\CommentTok{\#Desconforto respiratório}
+\NormalTok{dados5 }\OtherTok{\textless{}{-}}\NormalTok{  dados5 }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{desc\_resp =} \FunctionTok{case\_when}\NormalTok{(DESC\_RESP }\SpecialCharTok{==} \DecValTok{1} \SpecialCharTok{\textasciitilde{}} \StringTok{"sim"}\NormalTok{,}
+\NormalTok{                               DESC\_RESP }\SpecialCharTok{==} \DecValTok{2} \SpecialCharTok{\textasciitilde{}} \StringTok{"não"}\NormalTok{,}
+                               \ConstantTok{TRUE} \SpecialCharTok{\textasciitilde{}} \ConstantTok{NA\_character\_}\NormalTok{))}
+
+\CommentTok{\#Saturação}
+\NormalTok{dados5 }\OtherTok{\textless{}{-}}\NormalTok{  dados5 }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{saturacao =} \FunctionTok{case\_when}\NormalTok{(SATURACAO }\SpecialCharTok{==} \DecValTok{1} \SpecialCharTok{\textasciitilde{}} \StringTok{"sim"}\NormalTok{,}
+\NormalTok{                               SATURACAO }\SpecialCharTok{==} \DecValTok{2} \SpecialCharTok{\textasciitilde{}} \StringTok{"não"}\NormalTok{,}
+                               \ConstantTok{TRUE} \SpecialCharTok{\textasciitilde{}} \ConstantTok{NA\_character\_}\NormalTok{))}
+
+\CommentTok{\#Diarréia}
+\NormalTok{dados5 }\OtherTok{\textless{}{-}}\NormalTok{  dados5 }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{diarreia =} \FunctionTok{case\_when}\NormalTok{(DIARREIA }\SpecialCharTok{==} \DecValTok{1} \SpecialCharTok{\textasciitilde{}} \StringTok{"sim"}\NormalTok{,}
+\NormalTok{                              DIARREIA }\SpecialCharTok{==} \DecValTok{2} \SpecialCharTok{\textasciitilde{}} \StringTok{"não"}\NormalTok{,}
+                              \ConstantTok{TRUE} \SpecialCharTok{\textasciitilde{}} \ConstantTok{NA\_character\_}\NormalTok{))}
+
+\CommentTok{\#Vômito}
+\NormalTok{dados5 }\OtherTok{\textless{}{-}}\NormalTok{  dados5 }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{vomito =} \FunctionTok{case\_when}\NormalTok{(VOMITO }\SpecialCharTok{==} \DecValTok{1} \SpecialCharTok{\textasciitilde{}} \StringTok{"sim"}\NormalTok{,}
+\NormalTok{                            VOMITO }\SpecialCharTok{==} \DecValTok{2} \SpecialCharTok{\textasciitilde{}} \StringTok{"não"}\NormalTok{,}
+                            \ConstantTok{TRUE} \SpecialCharTok{\textasciitilde{}} \ConstantTok{NA\_character\_}\NormalTok{))}
+
+\CommentTok{\#Dor abdominal}
+\NormalTok{dados5 }\OtherTok{\textless{}{-}}\NormalTok{  dados5 }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{dor\_abd =} \FunctionTok{case\_when}\NormalTok{(DOR\_ABD }\SpecialCharTok{==} \DecValTok{1} \SpecialCharTok{\textasciitilde{}} \StringTok{"sim"}\NormalTok{,}
+\NormalTok{                             DOR\_ABD }\SpecialCharTok{==} \DecValTok{2} \SpecialCharTok{\textasciitilde{}} \StringTok{"não"}\NormalTok{,}
+                             \ConstantTok{TRUE} \SpecialCharTok{\textasciitilde{}} \ConstantTok{NA\_character\_}\NormalTok{))}
+
+\CommentTok{\#Fadiga}
+\NormalTok{dados5 }\OtherTok{\textless{}{-}}\NormalTok{  dados5 }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{fadiga =} \FunctionTok{case\_when}\NormalTok{(FADIGA }\SpecialCharTok{==} \DecValTok{1} \SpecialCharTok{\textasciitilde{}} \StringTok{"sim"}\NormalTok{,}
+\NormalTok{                            FADIGA }\SpecialCharTok{==} \DecValTok{2} \SpecialCharTok{\textasciitilde{}} \StringTok{"não"}\NormalTok{,}
+                            \ConstantTok{TRUE} \SpecialCharTok{\textasciitilde{}} \ConstantTok{NA\_character\_}\NormalTok{))}
+
+\CommentTok{\#Perda olfativa}
+\NormalTok{dados5 }\OtherTok{\textless{}{-}}\NormalTok{  dados5 }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{perd\_olft =} \FunctionTok{case\_when}\NormalTok{(PERD\_OLFT }\SpecialCharTok{==} \DecValTok{1} \SpecialCharTok{\textasciitilde{}} \StringTok{"sim"}\NormalTok{,}
+\NormalTok{                               PERD\_OLFT }\SpecialCharTok{==} \DecValTok{2} \SpecialCharTok{\textasciitilde{}} \StringTok{"não"}\NormalTok{,}
+                               \ConstantTok{TRUE} \SpecialCharTok{\textasciitilde{}} \ConstantTok{NA\_character\_}\NormalTok{))}
+
+\CommentTok{\#Perda do paladar}
+\NormalTok{dados5 }\OtherTok{\textless{}{-}}\NormalTok{  dados5 }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{perd\_pala =} \FunctionTok{case\_when}\NormalTok{(PERD\_PALA }\SpecialCharTok{==} \DecValTok{1} \SpecialCharTok{\textasciitilde{}} \StringTok{"sim"}\NormalTok{,}
+\NormalTok{                               PERD\_PALA }\SpecialCharTok{==} \DecValTok{2} \SpecialCharTok{\textasciitilde{}} \StringTok{"não"}\NormalTok{,}
+                               \ConstantTok{TRUE} \SpecialCharTok{\textasciitilde{}} \ConstantTok{NA\_character\_}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{comorbidades}{%
+\subsection{Comorbidades}\label{comorbidades}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#Cardiopatia}
+\NormalTok{dados5 }\OtherTok{\textless{}{-}}\NormalTok{  dados5 }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{cardiopati =} \FunctionTok{case\_when}\NormalTok{(CARDIOPATI }\SpecialCharTok{==} \DecValTok{1} \SpecialCharTok{\textasciitilde{}} \StringTok{"sim"}\NormalTok{,}
+\NormalTok{                                CARDIOPATI }\SpecialCharTok{==} \DecValTok{2} \SpecialCharTok{\textasciitilde{}} \StringTok{"não"}\NormalTok{,}
+                                \ConstantTok{TRUE} \SpecialCharTok{\textasciitilde{}} \ConstantTok{NA\_character\_}\NormalTok{))}
+
+\CommentTok{\#Hematológica}
+\NormalTok{dados5 }\OtherTok{\textless{}{-}}\NormalTok{  dados5 }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{hematologi =} \FunctionTok{case\_when}\NormalTok{(HEMATOLOGI }\SpecialCharTok{==} \DecValTok{1} \SpecialCharTok{\textasciitilde{}} \StringTok{"sim"}\NormalTok{,}
+\NormalTok{                                HEMATOLOGI }\SpecialCharTok{==} \DecValTok{2} \SpecialCharTok{\textasciitilde{}} \StringTok{"não"}\NormalTok{,}
+                                \ConstantTok{TRUE} \SpecialCharTok{\textasciitilde{}} \ConstantTok{NA\_character\_}\NormalTok{))}
+
+\CommentTok{\#Hepática}
+\NormalTok{dados5 }\OtherTok{\textless{}{-}}\NormalTok{  dados5 }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{hepatica =} \FunctionTok{case\_when}\NormalTok{(HEPATICA }\SpecialCharTok{==} \DecValTok{1} \SpecialCharTok{\textasciitilde{}} \StringTok{"sim"}\NormalTok{,}
+\NormalTok{                              HEPATICA }\SpecialCharTok{==} \DecValTok{2} \SpecialCharTok{\textasciitilde{}} \StringTok{"não"}\NormalTok{,}
+                              \ConstantTok{TRUE} \SpecialCharTok{\textasciitilde{}} \ConstantTok{NA\_character\_}\NormalTok{))}
+
+\CommentTok{\#Asma}
+\NormalTok{dados5 }\OtherTok{\textless{}{-}}\NormalTok{  dados5 }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{asma =} \FunctionTok{case\_when}\NormalTok{(ASMA }\SpecialCharTok{==} \DecValTok{1} \SpecialCharTok{\textasciitilde{}} \StringTok{"sim"}\NormalTok{,}
+\NormalTok{                          ASMA }\SpecialCharTok{==} \DecValTok{2} \SpecialCharTok{\textasciitilde{}} \StringTok{"não"}\NormalTok{,}
+                          \ConstantTok{TRUE} \SpecialCharTok{\textasciitilde{}} \ConstantTok{NA\_character\_}\NormalTok{))}
+
+\CommentTok{\#Diabetes}
+\NormalTok{dados5 }\OtherTok{\textless{}{-}}\NormalTok{  dados5 }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{diabetes =} \FunctionTok{case\_when}\NormalTok{(DIABETES }\SpecialCharTok{==} \DecValTok{1} \SpecialCharTok{\textasciitilde{}} \StringTok{"sim"}\NormalTok{,}
+\NormalTok{                              DIABETES }\SpecialCharTok{==} \DecValTok{2} \SpecialCharTok{\textasciitilde{}} \StringTok{"não"}\NormalTok{,}
+                              \ConstantTok{TRUE} \SpecialCharTok{\textasciitilde{}} \ConstantTok{NA\_character\_}\NormalTok{))}
+
+\CommentTok{\#Neurológica}
+\NormalTok{dados5 }\OtherTok{\textless{}{-}}\NormalTok{  dados5 }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{neuro =} \FunctionTok{case\_when}\NormalTok{(NEUROLOGIC }\SpecialCharTok{==} \DecValTok{1} \SpecialCharTok{\textasciitilde{}} \StringTok{"sim"}\NormalTok{,}
+\NormalTok{                           NEUROLOGIC }\SpecialCharTok{==} \DecValTok{2} \SpecialCharTok{\textasciitilde{}} \StringTok{"não"}\NormalTok{,}
+                           \ConstantTok{TRUE} \SpecialCharTok{\textasciitilde{}} \ConstantTok{NA\_character\_}\NormalTok{))}
+
+\CommentTok{\#Pneumopatia}
+\NormalTok{dados5 }\OtherTok{\textless{}{-}}\NormalTok{  dados5 }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{pneumopati =} \FunctionTok{case\_when}\NormalTok{(PNEUMOPATI }\SpecialCharTok{==} \DecValTok{1} \SpecialCharTok{\textasciitilde{}} \StringTok{"sim"}\NormalTok{,}
+\NormalTok{                                PNEUMOPATI }\SpecialCharTok{==} \DecValTok{2} \SpecialCharTok{\textasciitilde{}} \StringTok{"não"}\NormalTok{,}
+                                \ConstantTok{TRUE} \SpecialCharTok{\textasciitilde{}} \ConstantTok{NA\_character\_}\NormalTok{))}
+
+\CommentTok{\#Imunossupressão}
+\NormalTok{dados5 }\OtherTok{\textless{}{-}}\NormalTok{  dados5 }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{imunodepre =} \FunctionTok{case\_when}\NormalTok{(IMUNODEPRE }\SpecialCharTok{==} \DecValTok{1} \SpecialCharTok{\textasciitilde{}} \StringTok{"sim"}\NormalTok{,}
+\NormalTok{                                IMUNODEPRE }\SpecialCharTok{==} \DecValTok{2} \SpecialCharTok{\textasciitilde{}} \StringTok{"não"}\NormalTok{,}
+                                \ConstantTok{TRUE} \SpecialCharTok{\textasciitilde{}} \ConstantTok{NA\_character\_}\NormalTok{))}
+
+\CommentTok{\#Renal}
+\NormalTok{dados5 }\OtherTok{\textless{}{-}}\NormalTok{  dados5 }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{renal =} \FunctionTok{case\_when}\NormalTok{(RENAL }\SpecialCharTok{==} \DecValTok{1} \SpecialCharTok{\textasciitilde{}} \StringTok{"sim"}\NormalTok{,}
+\NormalTok{                           RENAL }\SpecialCharTok{==} \DecValTok{2} \SpecialCharTok{\textasciitilde{}} \StringTok{"não"}\NormalTok{,}
+                           \ConstantTok{TRUE} \SpecialCharTok{\textasciitilde{}} \ConstantTok{NA\_character\_}\NormalTok{))}
+
+\CommentTok{\#Obesidade}
+\NormalTok{dados5 }\OtherTok{\textless{}{-}}\NormalTok{  dados5 }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{obesidade =} \FunctionTok{case\_when}\NormalTok{(OBESIDADE }\SpecialCharTok{==} \DecValTok{1} \SpecialCharTok{\textasciitilde{}} \StringTok{"sim"}\NormalTok{,}
+\NormalTok{                               OBESIDADE }\SpecialCharTok{==} \DecValTok{2} \SpecialCharTok{\textasciitilde{}} \StringTok{"não"}\NormalTok{,}
+                               \ConstantTok{TRUE} \SpecialCharTok{\textasciitilde{}} \ConstantTok{NA\_character\_}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{desfechos}{%
+\subsection{Desfechos}\label{desfechos}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#UTI}
+\NormalTok{dados5 }\OtherTok{\textless{}{-}}\NormalTok{ dados5 }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{uti =} \FunctionTok{case\_when}\NormalTok{(UTI }\SpecialCharTok{==} \DecValTok{1} \SpecialCharTok{\textasciitilde{}} \StringTok{"sim"}\NormalTok{,}
+\NormalTok{                         UTI }\SpecialCharTok{==} \DecValTok{2} \SpecialCharTok{\textasciitilde{}} \StringTok{"não"}\NormalTok{,}
+                         \ConstantTok{TRUE} \SpecialCharTok{\textasciitilde{}} \ConstantTok{NA\_character\_}\NormalTok{))}
+
+\CommentTok{\#Suporte ventilatório}
+\NormalTok{dados5 }\OtherTok{\textless{}{-}}\NormalTok{ dados5 }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}
+    \AttributeTok{suport\_ven =} \FunctionTok{case\_when}\NormalTok{(}
+\NormalTok{      SUPORT\_VEN }\SpecialCharTok{==} \DecValTok{1} \SpecialCharTok{\textasciitilde{}} \StringTok{"invasivo"}\NormalTok{,}
+\NormalTok{      SUPORT\_VEN }\SpecialCharTok{==} \DecValTok{2} \SpecialCharTok{\textasciitilde{}} \StringTok{"não invasivo"}\NormalTok{,}
+\NormalTok{      SUPORT\_VEN }\SpecialCharTok{==} \DecValTok{3} \SpecialCharTok{\textasciitilde{}} \StringTok{"não"}\NormalTok{,}
+      \ConstantTok{TRUE} \SpecialCharTok{\textasciitilde{}} \ConstantTok{NA\_character\_}
+\NormalTok{    )}
+\NormalTok{  )}
+
+\NormalTok{dados5}\SpecialCharTok{$}\NormalTok{suport\_ven }\OtherTok{\textless{}{-}} \FunctionTok{factor}\NormalTok{(dados5}\SpecialCharTok{$}\NormalTok{suport\_ven,}
+                            \AttributeTok{levels =} \FunctionTok{c}\NormalTok{(}\StringTok{"invasivo"}\NormalTok{, }\StringTok{"não invasivo"}\NormalTok{, }\StringTok{"não"}\NormalTok{))}
+
+\CommentTok{\#Evolução}
+\NormalTok{dados5 }\OtherTok{\textless{}{-}}
+\NormalTok{  dados5 }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{mutate}\NormalTok{(}
+    \AttributeTok{evolucao =} \FunctionTok{case\_when}\NormalTok{(}
+\NormalTok{      EVOLUCAO }\SpecialCharTok{==} \DecValTok{1} \SpecialCharTok{\textasciitilde{}} \StringTok{"Cura"}\NormalTok{,}
+\NormalTok{      EVOLUCAO }\SpecialCharTok{==} \DecValTok{2} \SpecialCharTok{\textasciitilde{}} \StringTok{"Obito"}\NormalTok{,}
+\NormalTok{      EVOLUCAO }\SpecialCharTok{==} \DecValTok{3} \SpecialCharTok{\textasciitilde{}} \StringTok{"Obito"}\NormalTok{,}
+      \ConstantTok{TRUE} \SpecialCharTok{\textasciitilde{}} \ConstantTok{NA\_character\_}
+\NormalTok{    )}
+\NormalTok{  )}
+
+\CommentTok{\#Classificação final}
+\NormalTok{dados5 }\OtherTok{\textless{}{-}}
+\NormalTok{  dados5 }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{mutate}\NormalTok{(}
+    \AttributeTok{classi\_fin1 =} \FunctionTok{case\_when}\NormalTok{(}
+\NormalTok{      CLASSI\_FIN }\SpecialCharTok{==} \DecValTok{5} \SpecialCharTok{\textasciitilde{}} \StringTok{"COVID{-}19"}\NormalTok{,}
+\NormalTok{      CLASSI\_FIN }\SpecialCharTok{==} \DecValTok{1} \SpecialCharTok{\textasciitilde{}} \StringTok{"Influenza"}\NormalTok{,}
+\NormalTok{      CLASSI\_FIN }\SpecialCharTok{==} \DecValTok{2} \SpecialCharTok{\textasciitilde{}} \StringTok{"Outro vírus"}\NormalTok{,}
+\NormalTok{      CLASSI\_FIN }\SpecialCharTok{==} \DecValTok{3} \SpecialCharTok{\textasciitilde{}} \StringTok{"Outro agente"}\NormalTok{,}
+      \ConstantTok{TRUE} \SpecialCharTok{\textasciitilde{}} \ConstantTok{NA\_character\_}
+\NormalTok{    )}
+\NormalTok{  )}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#tabela de frequência para UTI}
+\NormalTok{questionr}\SpecialCharTok{::}\FunctionTok{freq}\NormalTok{(}
+\NormalTok{  dados5}\SpecialCharTok{$}\NormalTok{uti,}
+  \AttributeTok{cum =} \ConstantTok{FALSE}\NormalTok{,}
+  \AttributeTok{total =} \ConstantTok{TRUE}\NormalTok{,}
+  \AttributeTok{na.last =} \ConstantTok{FALSE}\NormalTok{,}
+  \AttributeTok{valid =} \ConstantTok{FALSE}
+\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{kable}\NormalTok{(}\AttributeTok{caption =} \StringTok{"Tabela de frequências para UTI"}\NormalTok{, }
+        \AttributeTok{digits =} \DecValTok{2}\NormalTok{) }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{longtable}[]{@{}lrr@{}}
+\caption{Tabela de frequências para UTI}\tabularnewline
+\toprule
+& n & \% \\
+\midrule
+\endfirsthead
+\toprule
+& n & \% \\
+\midrule
+\endhead
+não & 7963 & 64.4 \\
+sim & 3619 & 29.3 \\
+NA & 782 & 6.3 \\
+Total & 12364 & 100.0 \\
+\bottomrule
+\end{longtable}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#tabela de frequência para suporte ventilatório}
+\NormalTok{questionr}\SpecialCharTok{::}\FunctionTok{freq}\NormalTok{(}
+\NormalTok{  dados5}\SpecialCharTok{$}\NormalTok{suport\_ven,}
+  \AttributeTok{cum =} \ConstantTok{FALSE}\NormalTok{,}
+  \AttributeTok{total =} \ConstantTok{TRUE}\NormalTok{,}
+  \AttributeTok{na.last =} \ConstantTok{FALSE}\NormalTok{,}
+  \AttributeTok{valid =} \ConstantTok{FALSE}
+\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{kable}\NormalTok{(}\AttributeTok{caption =} \StringTok{"Tabela de frequências para }
+\StringTok{        suporte ventilatório"}\NormalTok{, }
+        \AttributeTok{digits =} \DecValTok{2}\NormalTok{) }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{longtable}[]{@{}lrr@{}}
+\caption{Tabela de frequências para suporte ventilatório}\tabularnewline
+\toprule
+& n & \% \\
+\midrule
+\endfirsthead
+\toprule
+& n & \% \\
+\midrule
+\endhead
+invasivo & 1698 & 13.7 \\
+não invasivo & 4035 & 32.6 \\
+não & 5467 & 44.2 \\
+NA & 1164 & 9.4 \\
+Total & 12364 & 100.0 \\
+\bottomrule
+\end{longtable}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#tabela de frequência para evolução}
+\NormalTok{questionr}\SpecialCharTok{::}\FunctionTok{freq}\NormalTok{(}
+\NormalTok{  dados5}\SpecialCharTok{$}\NormalTok{evolucao,}
+  \AttributeTok{cum =} \ConstantTok{FALSE}\NormalTok{,}
+  \AttributeTok{total =} \ConstantTok{TRUE}\NormalTok{,}
+  \AttributeTok{na.last =} \ConstantTok{FALSE}\NormalTok{,}
+  \AttributeTok{valid =} \ConstantTok{FALSE}
+\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{kable}\NormalTok{(}\AttributeTok{caption =} \StringTok{"Tabela de frequências para evolução"}\NormalTok{, }
+        \AttributeTok{digits =} \DecValTok{2}\NormalTok{) }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{longtable}[]{@{}lrr@{}}
+\caption{Tabela de frequências para evolução}\tabularnewline
+\toprule
+& n & \% \\
+\midrule
+\endfirsthead
+\toprule
+& n & \% \\
+\midrule
+\endhead
+Cura & 10292 & 83.2 \\
+Obito & 1252 & 10.1 \\
+NA & 820 & 6.6 \\
+Total & 12364 & 100.0 \\
+\bottomrule
+\end{longtable}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#tabela de frequência para classificação final}
+\NormalTok{questionr}\SpecialCharTok{::}\FunctionTok{freq}\NormalTok{(}
+\NormalTok{  dados5}\SpecialCharTok{$}\NormalTok{classi\_fin1,}
+  \AttributeTok{cum =} \ConstantTok{FALSE}\NormalTok{,}
+  \AttributeTok{total =} \ConstantTok{TRUE}\NormalTok{,}
+  \AttributeTok{na.last =} \ConstantTok{FALSE}\NormalTok{,}
+  \AttributeTok{valid =} \ConstantTok{FALSE}
+\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{kable}\NormalTok{(}\AttributeTok{caption =} \StringTok{"Tabela de frequências para classificação final"}\NormalTok{, }
+        \AttributeTok{digits =} \DecValTok{2}\NormalTok{) }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{longtable}[]{@{}lrr@{}}
+\caption{Tabela de frequências para classificação final}\tabularnewline
+\toprule
+& n & \% \\
+\midrule
+\endfirsthead
+\toprule
+& n & \% \\
+\midrule
+\endhead
+COVID-19 & 12364 & 100 \\
+Total & 12364 & 100 \\
+\bottomrule
+\end{longtable}
+
+\hypertarget{variuxe1veis-de-tempo}{%
+\subsection{Variáveis de tempo}\label{variuxe1veis-de-tempo}}
+
+Vamos criar as variáveis de tempo: tempo entre primeiros sintomas e
+internação, tempo entre primeiros sintomas e notificação, tempo de
+permanência na UTI e tempo entre primeiros sintomas e evolução. Para
+isso, vamos primeiro tratar as variáveis de data no que segue.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\#\#\#\#\#\#\#\#\#\#\#\# datas}
+\CommentTok{\#dt\_notific {-} Data do preenchimento da ficha de notificação}
+\CommentTok{\#dt\_sint {-} Data de 1ºs sintomas (deve ser menor que dt\_notific)}
+\CommentTok{\#dt\_interna {-} Data da internação por SRAG}
+\CommentTok{\#dt\_pcr {-} Data do Resultado RT{-}PCR/outro método por Biologia Molecular}
+\CommentTok{\#dt\_entuti {-} Data da entrada na UTI}
+\CommentTok{\#dt\_saiduti {-} Data da saída da UTI }
+\CommentTok{\#dt\_evoluca {-} Data da alta ou óbito}
+\CommentTok{\#dt\_digita {-} Preenchido automaticamente pelo sistema com a data da digitação da ficha. }
+\DocumentationTok{\#\#Não é a data de preenchimento da ficha manualmente e sim a data em que é digitado no sistema.}
+\NormalTok{dados5 }\OtherTok{\textless{}{-}}\NormalTok{  dados5 }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{dt\_notific =} \FunctionTok{as.Date}\NormalTok{(DT\_NOTIFIC, }\AttributeTok{format =} \StringTok{"\%d/\%m/\%Y"}\NormalTok{),}
+         \AttributeTok{dt\_sint =} \FunctionTok{as.Date}\NormalTok{(DT\_SIN\_PRI, }\AttributeTok{format =} \StringTok{"\%d/\%m/\%Y"}\NormalTok{),}
+         \AttributeTok{dt\_interna =} \FunctionTok{as.Date}\NormalTok{(DT\_INTERNA, }\AttributeTok{format =} \StringTok{"\%d/\%m/\%Y"}\NormalTok{),}
+         \AttributeTok{dt\_pcr =} \FunctionTok{as.Date}\NormalTok{(DT\_PCR, }\AttributeTok{format =} \StringTok{"\%d/\%m/\%Y"}\NormalTok{),}
+         \AttributeTok{dt\_entuti  =} \FunctionTok{as.Date}\NormalTok{(DT\_ENTUTI,  }\AttributeTok{format =} \StringTok{"\%d/\%m/\%Y"}\NormalTok{),}
+         \AttributeTok{dt\_saiduti =} \FunctionTok{as.Date}\NormalTok{(DT\_SAIDUTI, }\AttributeTok{format =} \StringTok{"\%d/\%m/\%Y"}\NormalTok{),}
+         \AttributeTok{dt\_evoluca =} \FunctionTok{as.Date}\NormalTok{(DT\_EVOLUCA, }\AttributeTok{format =} \StringTok{"\%d/\%m/\%Y"}\NormalTok{),}
+         \AttributeTok{dt\_encerra =} \FunctionTok{as.Date}\NormalTok{(DT\_ENCERRA, }\AttributeTok{format =} \StringTok{"\%d/\%m/\%Y"}\NormalTok{),}
+         \AttributeTok{dt\_digita =} \FunctionTok{as.Date}\NormalTok{(DT\_DIGITA, }\AttributeTok{format =} \StringTok{"\%d/\%m/\%Y"}\NormalTok{)}
+\NormalTok{  )}
+
+\NormalTok{hoje }\OtherTok{\textless{}{-}} \FunctionTok{Sys.Date}\NormalTok{() }\CommentTok{\#data de hoje}
+
+\CommentTok{\#Arrumando as datas de internação inconsistentes. }
+\CommentTok{\#Quando for maior que a data de hoje e menor que a data dos primeiros sintomas é NA.}
+\NormalTok{dados5 }\OtherTok{\textless{}{-}}\NormalTok{  dados5 }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{dt\_interna =} \FunctionTok{case\_when}\NormalTok{((dt\_interna }\SpecialCharTok{\textless{}=}\NormalTok{ hoje }\SpecialCharTok{\&}
+\NormalTok{                                   dt\_interna }\SpecialCharTok{\textgreater{}=}\NormalTok{ dt\_sint) }\SpecialCharTok{\textasciitilde{}}\NormalTok{ dt\_interna,}
+                                \ConstantTok{TRUE} \SpecialCharTok{\textasciitilde{}}\NormalTok{ NA\_Date\_}
+\NormalTok{  ))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#Criando as variáveis de tempo a partir da diferença entre as datas. }
+\CommentTok{\# tempo\_sintomas\_hosp: tempo entre primeiros sintomas e internação.}
+\CommentTok{\# tempo\_sintomas\_notific: tempo entre primeiros sintomas e notificação.}
+\CommentTok{\# tempo\_uti: tempo de permanência na UTI.}
+\CommentTok{\# tempo\_sint\_evolucao: tempo entre primeiros sintomas e evolução}
+\NormalTok{dados5 }\OtherTok{\textless{}{-}}\NormalTok{ dados5 }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{mutate}\NormalTok{(}
+    \AttributeTok{tempo\_sintomas\_hosp =} \FunctionTok{as.numeric}\NormalTok{(dt\_interna }\SpecialCharTok{{-}}\NormalTok{ dt\_sint),}
+    \AttributeTok{tempo\_sintomas\_notific =} \FunctionTok{as.numeric}\NormalTok{(dt\_notific }\SpecialCharTok{{-}}\NormalTok{ dt\_sint),}
+    \AttributeTok{tempo\_uti =} \FunctionTok{as.numeric}\NormalTok{(dt\_saiduti }\SpecialCharTok{{-}}\NormalTok{ dt\_entuti),}
+    \AttributeTok{tempo\_sint\_evolucao =} \FunctionTok{as.numeric}\NormalTok{(dt\_evoluca }\SpecialCharTok{{-}}\NormalTok{ dt\_sint)}
+\NormalTok{  )  }
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{exportando-as-bases-de-dados}{%
+\section{Exportando as bases de
+dados}\label{exportando-as-bases-de-dados}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{dados6 }\OtherTok{\textless{}{-}}\NormalTok{ dados5 }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{select}\NormalTok{(}
+\NormalTok{    SEM\_PRI,}
+\NormalTok{    idade\_anos,}
+\NormalTok{    SG\_UF,}
+\NormalTok{    ID\_MN\_RESI,}
+\NormalTok{    CO\_MUN\_RES,}
+\NormalTok{    CO\_MU\_INTE,}
+\NormalTok{    CLASSI\_FIN,}
+\NormalTok{    classi\_fin1,}
+\NormalTok{    DT\_SIN\_PRI,}
+\NormalTok{    DT\_EVOLUCA,}
+\NormalTok{    dt\_evoluca, }
+\NormalTok{    dt\_sint,}
+\NormalTok{    ano,}
+\NormalTok{    classi\_gesta\_puerp,}
+\NormalTok{    classi\_covid,}
+\NormalTok{    region,}
+\NormalTok{    raca,}
+\NormalTok{    escol,}
+\NormalTok{    mudou\_muni,}
+\NormalTok{    zona,}
+\NormalTok{    faixa\_et,}
+\NormalTok{    hospital,}
+\NormalTok{    hist\_viagem,}
+\NormalTok{    sg\_para\_srag,}
+\NormalTok{    inf\_inter,}
+\NormalTok{    cont\_ave\_suino,}
+\NormalTok{    vacina,}
+\NormalTok{    vacina\_cov,}
+\NormalTok{    antiviral,}
+\NormalTok{    febre,}
+\NormalTok{    tosse,}
+\NormalTok{    garganta,}
+\NormalTok{    dispneia,}
+\NormalTok{    desc\_resp,}
+\NormalTok{    saturacao,}
+\NormalTok{    diarreia,}
+\NormalTok{    vomito,}
+\NormalTok{    dor\_abd,}
+\NormalTok{    fadiga,}
+\NormalTok{    perd\_olft,}
+\NormalTok{    perd\_pala,}
+\NormalTok{    cardiopati,}
+\NormalTok{    hematologi,}
+\NormalTok{    hepatica,}
+\NormalTok{    asma,}
+\NormalTok{    diabetes,}
+\NormalTok{    neuro,}
+\NormalTok{    pneumopati,}
+\NormalTok{    imunodepre,}
+\NormalTok{    renal,}
+\NormalTok{    obesidade,}
+\NormalTok{    uti,}
+\NormalTok{    suport\_ven,}
+\NormalTok{    evolucao,}
+\NormalTok{    dt\_evoluca,}
+\NormalTok{    tempo\_sintomas\_hosp,}
+\NormalTok{    tempo\_sintomas\_notific,}
+\NormalTok{    tempo\_uti,}
+\NormalTok{    tempo\_sint\_evolucao,}
+\NormalTok{    DOSE\_1\_COV,}
+\NormalTok{    DOSE\_2\_COV}
+\NormalTok{)}
+
+\CommentTok{\#Exportando}
+\CommentTok{\# write\_xlsx(dados6, "dados6.xlsx")}
+\FunctionTok{saveRDS}\NormalTok{(dados6,}\StringTok{"dados6.rds"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+
+\end{document}
