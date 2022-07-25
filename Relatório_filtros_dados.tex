@@ -115,7 +115,7 @@
 
 \title{Análises do SIVEP-Gripe para Variantes Gestantes e Puérperas}
 \author{Gestantes e puérperas}
-\date{22/julho/2022}
+\date{25/julho/2022}
 
 \begin{document}
 \maketitle
@@ -941,6 +941,7 @@ caracterização}\label{variuxe1veis-de-caracterizauxe7uxe3o}}
 \NormalTok{dados5 }\OtherTok{\textless{}{-}}\NormalTok{  dados5 }\SpecialCharTok{\%\textgreater{}\%}
   \FunctionTok{mutate}\NormalTok{(}\AttributeTok{vacina\_cov =} \FunctionTok{case\_when}\NormalTok{(VACINA\_COV }\SpecialCharTok{==} \DecValTok{1} \SpecialCharTok{\textasciitilde{}} \StringTok{"sim"}\NormalTok{,}
 \NormalTok{                            VACINA\_COV }\SpecialCharTok{==} \DecValTok{2} \SpecialCharTok{\textasciitilde{}} \StringTok{"não"}\NormalTok{,}
+\NormalTok{                            variante }\SpecialCharTok{==} \StringTok{"original"} \SpecialCharTok{\textasciitilde{}} \StringTok{"não"}\NormalTok{,}
                             \ConstantTok{TRUE} \SpecialCharTok{\textasciitilde{}} \ConstantTok{NA\_character\_}\NormalTok{))}
 
 \CommentTok{\#Antiviral}
@@ -1144,7 +1145,11 @@ caracterização}\label{variuxe1veis-de-caracterizauxe7uxe3o}}
 
 \NormalTok{dados5}\SpecialCharTok{$}\NormalTok{suport\_ven }\OtherTok{\textless{}{-}} \FunctionTok{factor}\NormalTok{(dados5}\SpecialCharTok{$}\NormalTok{suport\_ven,}
                             \AttributeTok{levels =} \FunctionTok{c}\NormalTok{(}\StringTok{"invasivo"}\NormalTok{, }\StringTok{"não invasivo"}\NormalTok{, }\StringTok{"não"}\NormalTok{))}
-
+\NormalTok{dados5 }\OtherTok{\textless{}{-}}\NormalTok{ dados5 }\SpecialCharTok{\%\textgreater{}\%}
+ \FunctionTok{mutate}\NormalTok{(}\AttributeTok{intubacao\_SN =} \FunctionTok{case\_when}\NormalTok{(SUPORT\_VEN }\SpecialCharTok{==} \DecValTok{1} \SpecialCharTok{\textasciitilde{}} \StringTok{"sim"}\NormalTok{,}
+\NormalTok{                                  SUPORT\_VEN }\SpecialCharTok{==} \DecValTok{2} \SpecialCharTok{\textasciitilde{}} \StringTok{"não"}\NormalTok{,}
+\NormalTok{                                  SUPORT\_VEN }\SpecialCharTok{==} \DecValTok{3} \SpecialCharTok{\textasciitilde{}} \StringTok{"não"}\NormalTok{,}
+                                  \ConstantTok{TRUE} \SpecialCharTok{\textasciitilde{}} \ConstantTok{NA\_character\_}\NormalTok{))}
 \CommentTok{\#Evolução}
 \NormalTok{dados5 }\OtherTok{\textless{}{-}}
 \NormalTok{  dados5 }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{mutate}\NormalTok{(}

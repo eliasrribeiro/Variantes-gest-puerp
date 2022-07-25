@@ -35,10 +35,10 @@ dataset <- dados1  %>%
   mutate(vacina_cov = as.factor(case_when( #vacine
     VACINA_COV == 1  ~ "sim",
     VACINA_COV == 2 ~ "não",
+    variante == "original" ~ "não",
     VACINA_COV == 9 ~ "ignorado",
     TRUE ~ "em branco"))
   ) %>%
-  mutate(vacina_cov = ifelse(variante == "original","não",vacina_cov)) %>% 
   mutate(vacina = as.factor(case_when( #vacine
     VACINA == 1  ~ "sim",
     VACINA == 2 ~ "não",
@@ -208,10 +208,6 @@ dataset <- dados1  %>%
                               DIABETES == 9 ~ "ignorado",
                               TRUE ~ "em branco"))
   
-  
-
-           
-
 
 dados2 <-  dataset %>% select(
     ano,
@@ -296,10 +292,10 @@ new_data <- new_data %>%
       idade_anos >= 35 ~ ">=35",
       TRUE ~ NA_character_
     )) %>% 
-  mutate(intubacao_SN = case_when(SUPORT_VEN == 1 ~ "sim",
-                                  SUPORT_VEN == 2 ~ "não",
-                                  SUPORT_VEN == 3 ~ "não",
-                                  SUPORT_VEN == 9 ~ "ignorado",
+  mutate(intubacao_SN = case_when(suport_ven == 1 ~ "sim",
+                                  suport_ven == 2 ~ "não",
+                                  suport_ven == 3 ~ "não",
+                                  suport_ven == 9 ~ "ignorado",
                                   TRUE ~ "em branco"))
 
 
@@ -353,7 +349,12 @@ new_data <- new_data %>%
       & idade_anos <= 34 ~ "20-34",
       idade_anos >= 35 ~ ">=35",
       TRUE ~ NA_character_
-    ))
+    )) %>% 
+  mutate(intubacao_SN = case_when(suport_ven == 1 ~ "sim",
+                                  suport_ven == 2 ~ "não",
+                                  suport_ven == 3 ~ "não",
+                                  suport_ven == 9 ~ "ignorado",
+                                  TRUE ~ "em branco"))
 
 
 regions <- function(state) {

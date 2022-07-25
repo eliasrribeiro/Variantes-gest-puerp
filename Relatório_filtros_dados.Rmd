@@ -586,6 +586,7 @@ dados5 <-  dados5 %>%
 dados5 <-  dados5 %>%
   mutate(vacina_cov = case_when(VACINA_COV == 1 ~ "sim",
                             VACINA_COV == 2 ~ "não",
+                            variante == "original" ~ "não",
                             TRUE ~ NA_character_))
 
 #Antiviral

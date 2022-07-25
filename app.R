@@ -26,12 +26,17 @@ library(logbin)
 
 dados5 <- readRDS("dados_var.rds")
 
+dados5 <- dados5 %>% 
+  mutate(vacina_cov1 = case_when(
+    vacina_cov == "sim" ~ "sim",
+    vacina_cov == "não" ~ "não",
+    variante == "original" ~ "não",
+    TRUE ~ NA_character_
+  ))
+
 dados_smote <- readRDS("dados_smote.rds")
 
 dados_downsample <- readRDS("dados_downsample.rds")
-
-dados5 <- dados5 %>% 
-    mutate(vacina_cov = ifelse(variante == "original","não",vacina_cov)) 
 
 # dados_smote <- dados_smote %>% 
 #   mutate(vacina_cov2 = ifelse(variante == "original","não",vacina_cov)) 
@@ -50,7 +55,7 @@ dados5 <- dados5 %>%
   mutate(dt_1dose = as.Date(DOSE_1_COV, format = "%d/%m/%Y")) %>% 
   mutate(dt_2dose = as.Date(DOSE_2_COV, format = "%d/%m/%Y")) %>% 
   mutate(doses = case_when(
-    vacina_cov == "sim" & is.na(dt_1dose) 
+    vacina_cov1 == "sim" & is.na(dt_1dose) 
     & is.na(dt_2dose) ~ "pelo menos uma dose",
     !is.na(dt_2dose) ~ "duas doses",
     !is.na(dt_1dose) & is.na(dt_2dose) ~ "pelo menos uma dose",
@@ -87,7 +92,7 @@ dados5$raca_sel <-
   ifelse(is.na(dados5$raca), "não informado", dados5$raca)
 
 dados5$vacina_cov_sel <-
-  ifelse(is.na(dados5$vacina_cov), "nao informado", dados5$vacina_cov)
+   ifelse(is.na(dados5$vacina_cov1), "nao informado", dados5$vacina_cov1)
 
 
 dados5$CLASSI_FIN <- as.factor(dados5$CLASSI_FIN)
@@ -96,6 +101,26 @@ dados5$CLASSI_FIN <- as.factor(dados5$CLASSI_FIN)
 dados5$DT_SIN_PRI <- dmy(dados5$DT_SIN_PRI)
 dados5$DT_EVOLUCA <- dmy(dados5$DT_EVOLUCA)
 
+
+teste_breslowday <- function(dados1, dados2, dados3, dados4, var) {
+  tab1 <- array(0, dim = c(2,2,2))
+  tab2 <- array(0, dim = c(2,2,2))
+  tab3 <- array(0, dim = c(2,2,2))
+  tab1[,,1] <- table(dados1$grupos, as.character(dados1[[var]]))
+  tab1[,,2] <- table(dados2$grupos, as.character(dados2[[var]]))
+  tab2[,,1] <- table(dados1$grupos, as.character(dados1[[var]]))
+  tab2[,,2] <- table(dados3$grupos, as.character(dados3[[var]]))
+  tab3[,,1] <- table(dados1$grupos, as.character(dados1[[var]]))
+  tab3[,,2] <- table(dados4$grupos, as.character(dados4[[var]]))
+  a <- BreslowDayTest(tab1, correct = TRUE)
+  b <- BreslowDayTest(tab2, correct = TRUE)
+  d <- BreslowDayTest(tab3, correct = TRUE)
+  out <- data.frame(comp=c("orig-gama","orig-delta","orig-omicr"),
+                    stat = c(a$statistic, b$statistic, d$statistic),
+                    p_valor = c(a$p.value, b$p.value, d$p.value)
+  )
+  return(out)
+}
 
 
 sticky_style <-
@@ -188,9 +213,9 @@ dropdownMenuCustom <- function (...,
 # User Interface ----
 ui <-
   dashboardPage(
-    title = "Análise Variantes COVID-19",
+    title = "Análise Variantes Gestantes e Puérperas",
     dashboardHeader(
-      title = strong('Análise Variantes COVID-19'),
+      title = strong('Análise Variantes Gestantes e Puérperas'),
       dropdownMenuCustom(
         type = 'message',
         customSentence = customSentence,
@@ -240,9 +265,11 @@ ui <-
         # menuItem("Documentação", tabName = "doc"),
         # menuItem("Informações Gerais", tabName = "info"),
         menuItem("Análise Geral", tabName = "tab_cruzada"),
-        menuItem("Análise com Smote", tabName = "anal_var")
-        # menuItem("Casos por UF e município", tabName = "muni_casos"),
-        # menuItem("Médias móveis", tabName = "graf"),
+        menuItem("Análise com Smote", tabName = "anal_var"),
+        menuItem("Análise com Downsample", tabName = "anal_downsample"),
+        menuItem("Comparação OR", tabName = "comp_or"),
+        menuItem("Comparação OR Smote", tabName = "comp_or_smote"),
+        menuItem("Comparação OR Down-Sample", tabName = "comp_or_downsample")
         # menuItem("Mapas", tabName = "mps_casos")
       )
     ),
@@ -309,7 +336,6 @@ ui <-
                     inputId = "caracteristicas1",
                     label = "Característica na linha:",
                     choices = c(
-                      "Ano do caso" = "ano",
                       "Momento gestacional" = "classi_gesta_puerp",
                       "Região do Brasil"  = "region",
                       "UF do Brasil"  = "SG_UF",
@@ -349,7 +375,7 @@ ui <-
                       "Suporte ventilatório" = "suport_ven",
                       "Intubação S/N" = "intubacao_SN",
                       "Evolução" = "evolucao",
-                      "Vacina" = "vacina_cov"
+                      "Vacina Covid" = "vacina_cov1"
                     ),
                     selected = "evolucao",
                     width = "220px"
@@ -404,6 +430,13 @@ ui <-
                   #   selected = "evolucao",
                   #   width = "220px"
                   # ),
+                  strong("Selecionar só casos válidos?"),
+                  checkboxInput("na1", "Excluir casos faltantes?",
+                                value = TRUE),
+                  hr(),
+                  h4(strong(
+                    "Variantes"
+                  )),
                   checkboxGroupInput(
                     inputId = "classivariante",
                     label = "Tipo de Variante de COVID-19:",
@@ -415,9 +448,6 @@ ui <-
                     ),
                     selected = c("original","gama","delta","omicron")
                   ),
-                  strong("Selecionar só casos válidos?"),
-                  checkboxInput("na1", "Excluir casos faltantes?",
-                                value = TRUE),
                   hr(),
                   h4(strong(
                     "Características gestantes e/ou puérperas"
@@ -455,7 +485,6 @@ ui <-
                   #   ),
                   #   selected = c("pcr", "antigenio", "sorologia", "outro", "não")
                   # ),
-                  hr(),
                   h4(strong("Vacina")),
                   checkboxGroupInput(
                     inputId = "vacinacov",
@@ -520,7 +549,6 @@ ui <-
                     inputId = "caracteristicas2",
                     label = "Característica na linha:",
                     choices = c(
-                      "Ano do caso" = "ano",
                       "Momento gestacional" = "classi_gesta_puerp",
                       "Região do Brasil"  = "region",
                       "UF do Brasil"  = "SG_UF",
@@ -566,6 +594,21 @@ ui <-
                     width = "220px"
                   ),
                   hr(),
+                  h4(strong(
+                    "Variantes"
+                  )),
+                  checkboxGroupInput(
+                    inputId = "classivariante2",
+                    label = "Tipo de Variante de COVID-19:",
+                    choices = c(
+                      "Original" = "original",
+                      "Gama" = "gama",
+                      "Delta" = "delta",
+                      "Omicron" = "omicron"
+                    ),
+                    selected = c("original","gama","delta","omicron")
+                  ),
+                  hr(),
                    h4(strong(
                      "Características gestantes e/ou puérperas"
                    )),
@@ -602,7 +645,6 @@ ui <-
                   #   ),
                   #   selected = c("pcr", "antigenio", "sorologia", "outro", "não")
                   # ),
-                  hr(),
                   h4(strong("Vacina")),
                   checkboxGroupInput(
                     inputId = "vacinacov2",
@@ -648,7 +690,618 @@ ui <-
                 )
               )
               
+              ),
+      ### Item Análise por variante ----
+      tabItem(tabName = "anal_downsample",
+              fluidRow(
+                box(
+                  collapsible = TRUE,
+                  width = 4,
+                  title = "Selecione",
+                  status = "primary",
+                  solidHeader = FALSE,
+                  h4(strong("Variáveis de interesse")),
+                  selectInput(
+                    inputId = "caracteristicas3",
+                    label = "Característica na linha:",
+                    choices = c(
+                      "Momento gestacional" = "classi_gesta_puerp",
+                      "Região do Brasil"  = "region",
+                      "UF do Brasil"  = "SG_UF",
+                      "Raça" = "raca",
+                      "Escolaridade" = "escol",
+                      "Faixa etária" = "faixa_et",
+                      "Mudança município" = "mudou_muni",
+                      "Zona da residência" = "zona",
+                      "SG para SRAG" = "sg_para_srag",
+                      "Infecção no hospital" = "inf_inter",
+                      "Contato com suíno" = "cont_ave_suino",
+                      "Vacina contra gripe" = "vacina",
+                      "Antiviral" = "antiviral",
+                      "Febre" = "febre",
+                      "Tosse" = "tosse",
+                      "Garganta" = "garganta",
+                      "Dispinéia" = "dispneia",
+                      "Desconforto respiratório" = "desc_resp",
+                      "Saturação" = "saturacao",
+                      "Diarréia" = "diarreia",
+                      "Vômito" = "vomito",
+                      "Dor abdominal" = "dor_abd",
+                      "Fadiga" = "fadiga",
+                      "Perda olfativa" = "perd_olft",
+                      "Perda paladar" = "perd_pala",
+                      "Cardiovascular" = "cardiopati",
+                      "Hematológica" = "hematologi",
+                      "Hepática" = "hepatica",
+                      "Asma" = "asma",
+                      "Diabetes" = "diabetes",
+                      "Neuropatia" = "neuro",
+                      "Pneumopatia" = "pneumopati",
+                      "Imunodepressão" = "imunodepre",
+                      "Renal" = "renal",
+                      "Obesidade" = "obesidade",
+                      "UTI" = "uti",
+                      "Suporte ventilatório" = "suport_ven",
+                      "Intubação S/N" = "intubacao_SN",
+                      "Evolução" = "evolucao",
+                      "Vacina Covid"="vacina_cov"
+                    ),
+                    selected = "evolucao",
+                    width = "220px"
+                  ),
+                  hr(),
+                  h4(strong(
+                    "Variantes"
+                  )),
+                  checkboxGroupInput(
+                    inputId = "classivariante3",
+                    label = "Tipo de Variante de COVID-19:",
+                    choices = c(
+                      "Original" = "original",
+                      "Gama" = "gama",
+                      "Delta" = "delta",
+                      "Omicron" = "omicron"
+                    ),
+                    selected = c("original","gama","delta","omicron")
+                  ),
+                  hr(),
+                  h4(strong(
+                    "Características gestantes e/ou puérperas"
+                  )),
+                  sliderInput(
+                    inputId = "idade3",
+                    label = "Intervalo de idade:",
+                    min = min(dados_downsample$idade_anos),
+                    max = max(dados_downsample$idade_anos),
+                    value = c(min(dados_downsample$idade_anos), max(dados_downsample$idade_anos))
+                  ),
+                  checkboxGroupInput(
+                    inputId = "GestantePuerpera3",
+                    label = "Idade gestacional/puérpera:",
+                    choices = c(
+                      "1° trimestre" = "1tri",
+                      "2° trimestre" = "2tri",
+                      "3° trimestre" = "3tri",
+                      "Idade gestacional ignorada" = "IG_ig",
+                      "Puérpera" = "puerp"
+                    ),
+                    selected = c("1tri", "2tri", "3tri", "IG_ig", "puerp")
+                  ),
+                  hr(),
+                  # h4(strong("Diagnóstico")),
+                  # checkboxGroupInput(
+                  #   inputId = "classiCovid2",
+                  #   label = "Tipo de diagnóstico de COVID:",
+                  #   choices = c(
+                  #     "PCR" = "pcr",
+                  #     "Antigênio" = "antigenio",
+                  #     "Sorologia" = "sorologia",
+                  #     "Outro" = "outro",
+                  #     "Não confirmado ou não COVID-19" = "não"
+                  #   ),
+                  #   selected = c("pcr", "antigenio", "sorologia", "outro", "não")
+                  # ),
+                  h4(strong("Vacina")),
+                  checkboxGroupInput(
+                    inputId = "vacinacov3",
+                    label = "Tomou a vacina?:",
+                    choices = c(
+                      "Sim" = "sim",
+                      "Não" = "não",
+                      "Ignorado" = "ignorado",
+                      "Em branco" = "em branco"
+                    ),
+                    selected = c("sim","não","ignorado","em branco")
+                  )
+                  # checkboxGroupInput(
+                  #   inputId = "dosescov2",
+                  #   label = "Tomou quantas doses?:",
+                  #   choices = c(
+                  #     "Pelo menos uma dose" = "pelo menos uma dose",
+                  #     "Duas doses" = "duas doses",
+                  #     "Não informado" = "não informado"
+                  #   ),
+                  #   selected = c("pelo menos uma dose","duas doses","não informado")
+                  # )
+                ),
+                box(
+                  width = 8,
+                  status = "primary",
+                  div(tabsetPanel(
+                    tabPanel("Tabela Cruzada",
+                              highcharter::highchartOutput("plot31"),
+                              verbatimTextOutput("table3"),
+                              h3(strong("Teste de Fisher")),
+                              verbatimTextOutput("print3")
+                             )
+                  )),
+                  h3(strong("Observação")),
+                  p(
+                    "<NA> na tabela acima indica os casos faltantes ou ignorados (não resposta) das variáveis em questão.
+                  No gráfico, essa informação aparece na categoria com número (por exemplo, número 2)."
+                  ),
+                  p(
+                    "Caso queira só analisar os casos válidos (sem considerar os casos faltantes), no canto superior esquerdo em 'Selecionar só casos válidos?',
+                selecione o botão 'Excluir casos faltantes?'."
+                  )
+                )
               )
+              
+      ),
+      ### Item Comparação OR ----
+      tabItem(tabName = "comp_or",
+              fluidRow(
+                box(
+                  collapsible = TRUE,
+                  width = 4,
+                  title = "Selecione",
+                  status = "primary",
+                  solidHeader = FALSE,
+                  h4(strong("Variáveis de interesse")),
+                  selectInput(
+                    inputId = "caracteristicas4",
+                    label = "Característica na linha:",
+                    choices = c(
+                      "Momento gestacional" = "classi_gesta_puerp",
+                      "Região do Brasil"  = "region",
+                      "UF do Brasil"  = "SG_UF",
+                      "Raça" = "raca",
+                      "Escolaridade" = "escol",
+                      "Faixa etária" = "faixa_et",
+                      "Mudança município" = "mudou_muni",
+                      "Zona da residência" = "zona",
+                      "SG para SRAG" = "sg_para_srag",
+                      "Infecção no hospital" = "inf_inter",
+                      "Contato com suíno" = "cont_ave_suino",
+                      "Vacina contra gripe" = "vacina",
+                      "Antiviral" = "antiviral",
+                      "Febre" = "febre",
+                      "Tosse" = "tosse",
+                      "Garganta" = "garganta",
+                      "Dispinéia" = "dispneia",
+                      "Desconforto respiratório" = "desc_resp",
+                      "Saturação" = "saturacao",
+                      "Diarréia" = "diarreia",
+                      "Vômito" = "vomito",
+                      "Dor abdominal" = "dor_abd",
+                      "Fadiga" = "fadiga",
+                      "Perda olfativa" = "perd_olft",
+                      "Perda paladar" = "perd_pala",
+                      "Cardiovascular" = "cardiopati",
+                      "Hematológica" = "hematologi",
+                      "Hepática" = "hepatica",
+                      "Asma" = "asma",
+                      "Diabetes" = "diabetes",
+                      "Neuropatia" = "neuro",
+                      "Pneumopatia" = "pneumopati",
+                      "Imunodepressão" = "imunodepre",
+                      "Renal" = "renal",
+                      "Obesidade" = "obesidade",
+                      "UTI" = "uti",
+                      "Suporte ventilatório" = "suport_ven",
+                      "Intubação S/N" = "intubacao_SN",
+                      "Evolução" = "evolucao",
+                      "Vacina Covid"="vacina_cov1"
+                    ),
+                    selected = "evolucao",
+                    width = "220px"
+                  ),
+                  # strong("Selecionar só casos válidos?"),
+                  # checkboxInput("na4", "Excluir casos faltantes?",
+                  #               value = TRUE),
+                  hr(),
+                  # h4(strong(
+                  #   "Variantes"
+                  # )),
+                  # checkboxGroupInput(
+                  #   inputId = "classivariante4",
+                  #   label = "Tipo de Variante de COVID-19:",
+                  #   choices = c(
+                  #     "Original" = "original",
+                  #     "Gama" = "gama",
+                  #     "Delta" = "delta",
+                  #     "Omicron" = "omicron"
+                  #   ),
+                  #   selected = c("original","gama","delta","omicron")
+                  # ),
+                  # hr(),
+                  h4(strong(
+                    "Características gestantes e/ou puérperas"
+                  )),
+                  sliderInput(
+                    inputId = "idade4",
+                    label = "Intervalo de idade:",
+                    min = min(dados5$idade_anos),
+                    max = max(dados5$idade_anos),
+                    value = c(min(dados5$idade_anos), max(dados5$idade_anos))
+                  ),
+                  # checkboxGroupInput(
+                  #   inputId = "GestantePuerpera4",
+                  #   label = "Idade gestacional/puérpera:",
+                  #   choices = c(
+                  #     "1° trimestre" = "1tri",
+                  #     "2° trimestre" = "2tri",
+                  #     "3° trimestre" = "3tri",
+                  #     "Idade gestacional ignorada" = "IG_ig",
+                  #     "Puérpera" = "puerp"
+                  #   ),
+                  #   selected = c("1tri", "2tri", "3tri", "IG_ig", "puerp")
+                  # ),
+                  # hr(),
+                  # h4(strong("Diagnóstico")),
+                  # checkboxGroupInput(
+                  #   inputId = "classiCovid2",
+                  #   label = "Tipo de diagnóstico de COVID:",
+                  #   choices = c(
+                  #     "PCR" = "pcr",
+                  #     "Antigênio" = "antigenio",
+                  #     "Sorologia" = "sorologia",
+                  #     "Outro" = "outro",
+                  #     "Não confirmado ou não COVID-19" = "não"
+                  #   ),
+                  #   selected = c("pcr", "antigenio", "sorologia", "outro", "não")
+                  # ),
+                  h4(strong("Vacina")),
+                  checkboxGroupInput(
+                    inputId = "vacinacov4",
+                    label = "Tomou a vacina?:",
+                    choices = c(
+                      "Sim" = "sim",
+                      "Não" = "não",
+                      "Não Informado" = "nao informado"
+                    ),
+                    selected = c("sim","não","nao informado")
+                  )
+                  # checkboxGroupInput(
+                  #   inputId = "dosescov2",
+                  #   label = "Tomou quantas doses?:",
+                  #   choices = c(
+                  #     "Pelo menos uma dose" = "pelo menos uma dose",
+                  #     "Duas doses" = "duas doses",
+                  #     "Não informado" = "não informado"
+                  #   ),
+                  #   selected = c("pelo menos uma dose","duas doses","não informado")
+                  # )
+                ),
+                box(
+                  width = 8,
+                  status = "primary",
+                  div(tabsetPanel(
+                    tabPanel("Teste de Breslow Day",
+                             # highcharter::highchartOutput("plot31"),
+                             # verbatimTextOutput("table3"),
+                             # h3(strong("Teste de Fisher")),
+                             verbatimTextOutput("print4")
+                    )
+                  )),
+                  h3(strong("Observação")),
+                  p(
+                    "O Teste acima é analisado em condicionando as variantes e os grupos Gestantes ou Puérperas"
+                  )
+                )
+              )
+              
+      ),
+      tabItem(tabName = "comp_or_smote",
+              fluidRow(
+                box(
+                  collapsible = TRUE,
+                  width = 4,
+                  title = "Selecione",
+                  status = "primary",
+                  solidHeader = FALSE,
+                  h4(strong("Variáveis de interesse")),
+                  selectInput(
+                    inputId = "caracteristicas5",
+                    label = "Característica na linha:",
+                    choices = c(
+                      "Momento gestacional" = "classi_gesta_puerp",
+                      "Região do Brasil"  = "region",
+                      "UF do Brasil"  = "SG_UF",
+                      "Raça" = "raca",
+                      "Escolaridade" = "escol",
+                      "Faixa etária" = "faixa_et",
+                      "Mudança município" = "mudou_muni",
+                      "Zona da residência" = "zona",
+                      "SG para SRAG" = "sg_para_srag",
+                      "Infecção no hospital" = "inf_inter",
+                      "Contato com suíno" = "cont_ave_suino",
+                      "Vacina contra gripe" = "vacina",
+                      "Antiviral" = "antiviral",
+                      "Febre" = "febre",
+                      "Tosse" = "tosse",
+                      "Garganta" = "garganta",
+                      "Dispinéia" = "dispneia",
+                      "Desconforto respiratório" = "desc_resp",
+                      "Saturação" = "saturacao",
+                      "Diarréia" = "diarreia",
+                      "Vômito" = "vomito",
+                      "Dor abdominal" = "dor_abd",
+                      "Fadiga" = "fadiga",
+                      "Perda olfativa" = "perd_olft",
+                      "Perda paladar" = "perd_pala",
+                      "Cardiovascular" = "cardiopati",
+                      "Hematológica" = "hematologi",
+                      "Hepática" = "hepatica",
+                      "Asma" = "asma",
+                      "Diabetes" = "diabetes",
+                      "Neuropatia" = "neuro",
+                      "Pneumopatia" = "pneumopati",
+                      "Imunodepressão" = "imunodepre",
+                      "Renal" = "renal",
+                      "Obesidade" = "obesidade",
+                      "UTI" = "uti",
+                      "Suporte ventilatório" = "suport_ven",
+                      "Intubação S/N" = "intubacao_SN",
+                      "Evolução" = "evolucao",
+                      "Vacina Covid"="vacina_cov"
+                    ),
+                    selected = "evolucao",
+                    width = "220px"
+                  ),
+                  # hr(),
+                  # h4(strong(
+                  #   "Variantes"
+                  # )),
+                  # checkboxGroupInput(
+                  #   inputId = "classivariante2",
+                  #   label = "Tipo de Variante de COVID-19:",
+                  #   choices = c(
+                  #     "Original" = "original",
+                  #     "Gama" = "gama",
+                  #     "Delta" = "delta",
+                  #     "Omicron" = "omicron"
+                  #   ),
+                  #   selected = c("original","gama","delta","omicron")
+                  # ),
+                  # hr(),
+                  h4(strong(
+                    "Características gestantes e/ou puérperas"
+                  )),
+                  sliderInput(
+                    inputId = "idade5",
+                    label = "Intervalo de idade:",
+                    min = min(dados_smote$idade_anos),
+                    max = max(dados_smote$idade_anos),
+                    value = c(min(dados_smote$idade_anos), max(dados_smote$idade_anos))
+                  ),
+                  # checkboxGroupInput(
+                  #   inputId = "GestantePuerpera2",
+                  #   label = "Idade gestacional/puérpera:",
+                  #   choices = c(
+                  #     "1° trimestre" = "1tri",
+                  #     "2° trimestre" = "2tri",
+                  #     "3° trimestre" = "3tri",
+                  #     "Idade gestacional ignorada" = "IG_ig",
+                  #     "Puérpera" = "puerp"
+                  #   ),
+                  #   selected = c("1tri", "2tri", "3tri", "IG_ig", "puerp")
+                  # ),
+                  hr(),
+                  # h4(strong("Diagnóstico")),
+                  # checkboxGroupInput(
+                  #   inputId = "classiCovid2",
+                  #   label = "Tipo de diagnóstico de COVID:",
+                  #   choices = c(
+                  #     "PCR" = "pcr",
+                  #     "Antigênio" = "antigenio",
+                  #     "Sorologia" = "sorologia",
+                  #     "Outro" = "outro",
+                  #     "Não confirmado ou não COVID-19" = "não"
+                  #   ),
+                  #   selected = c("pcr", "antigenio", "sorologia", "outro", "não")
+                  # ),
+                  h4(strong("Vacina")),
+                  checkboxGroupInput(
+                    inputId = "vacinacov5",
+                    label = "Tomou a vacina?:",
+                    choices = c(
+                      "Sim" = "sim",
+                      "Não" = "não",
+                      "Ignorado" = "ignorado",
+                      "Em branco" = "em branco"
+                    ),
+                    selected = c("sim","não","ignorado","em branco")
+                  )
+                  # checkboxGroupInput(
+                  #   inputId = "dosescov2",
+                  #   label = "Tomou quantas doses?:",
+                  #   choices = c(
+                  #     "Pelo menos uma dose" = "pelo menos uma dose",
+                  #     "Duas doses" = "duas doses",
+                  #     "Não informado" = "não informado"
+                  #   ),
+                  #   selected = c("pelo menos uma dose","duas doses","não informado")
+                  # )
+                ),
+                box(
+                  width = 8,
+                  status = "primary",
+                  div(tabsetPanel(
+                    tabPanel("Teste de Breslow Day",
+                             # highcharter::highchartOutput("plot21"),
+                             # verbatimTextOutput("table2"),
+                             # h3(strong("Teste de Fisher")),
+                             verbatimTextOutput("print5"))
+                  )),
+                  h3(strong("Observação")),
+                  p(
+                    "O Teste acima é analisado em condicionando as variantes e os grupos Gestantes ou Puérperas"
+                  )
+                )
+              )
+              
+      ),
+      tabItem(tabName = "comp_or_downsample",
+              fluidRow(
+                box(
+                  collapsible = TRUE,
+                  width = 4,
+                  title = "Selecione",
+                  status = "primary",
+                  solidHeader = FALSE,
+                  h4(strong("Variáveis de interesse")),
+                  selectInput(
+                    inputId = "caracteristicas6",
+                    label = "Característica na linha:",
+                    choices = c(
+                      "Momento gestacional" = "classi_gesta_puerp",
+                      "Região do Brasil"  = "region",
+                      "UF do Brasil"  = "SG_UF",
+                      "Raça" = "raca",
+                      "Escolaridade" = "escol",
+                      "Faixa etária" = "faixa_et",
+                      "Mudança município" = "mudou_muni",
+                      "Zona da residência" = "zona",
+                      "SG para SRAG" = "sg_para_srag",
+                      "Infecção no hospital" = "inf_inter",
+                      "Contato com suíno" = "cont_ave_suino",
+                      "Vacina contra gripe" = "vacina",
+                      "Antiviral" = "antiviral",
+                      "Febre" = "febre",
+                      "Tosse" = "tosse",
+                      "Garganta" = "garganta",
+                      "Dispinéia" = "dispneia",
+                      "Desconforto respiratório" = "desc_resp",
+                      "Saturação" = "saturacao",
+                      "Diarréia" = "diarreia",
+                      "Vômito" = "vomito",
+                      "Dor abdominal" = "dor_abd",
+                      "Fadiga" = "fadiga",
+                      "Perda olfativa" = "perd_olft",
+                      "Perda paladar" = "perd_pala",
+                      "Cardiovascular" = "cardiopati",
+                      "Hematológica" = "hematologi",
+                      "Hepática" = "hepatica",
+                      "Asma" = "asma",
+                      "Diabetes" = "diabetes",
+                      "Neuropatia" = "neuro",
+                      "Pneumopatia" = "pneumopati",
+                      "Imunodepressão" = "imunodepre",
+                      "Renal" = "renal",
+                      "Obesidade" = "obesidade",
+                      "UTI" = "uti",
+                      "Suporte ventilatório" = "suport_ven",
+                      "Intubação S/N" = "intubacao_SN",
+                      "Evolução" = "evolucao",
+                      "Vacina Covid"="vacina_cov"
+                    ),
+                    selected = "evolucao",
+                    width = "220px"
+                  ),
+                  # hr(),
+                  # h4(strong(
+                  #   "Variantes"
+                  # )),
+                  # checkboxGroupInput(
+                  #   inputId = "classivariante2",
+                  #   label = "Tipo de Variante de COVID-19:",
+                  #   choices = c(
+                  #     "Original" = "original",
+                  #     "Gama" = "gama",
+                  #     "Delta" = "delta",
+                  #     "Omicron" = "omicron"
+                  #   ),
+                  #   selected = c("original","gama","delta","omicron")
+                  # ),
+                  # hr(),
+                  h4(strong(
+                    "Características gestantes e/ou puérperas"
+                  )),
+                  sliderInput(
+                    inputId = "idade6",
+                    label = "Intervalo de idade:",
+                    min = min(dados_downsample$idade_anos),
+                    max = max(dados_downsample$idade_anos),
+                    value = c(min(dados_downsample$idade_anos), max(dados_downsample$idade_anos))
+                  ),
+                  # checkboxGroupInput(
+                  #   inputId = "GestantePuerpera2",
+                  #   label = "Idade gestacional/puérpera:",
+                  #   choices = c(
+                  #     "1° trimestre" = "1tri",
+                  #     "2° trimestre" = "2tri",
+                  #     "3° trimestre" = "3tri",
+                  #     "Idade gestacional ignorada" = "IG_ig",
+                  #     "Puérpera" = "puerp"
+                  #   ),
+                  #   selected = c("1tri", "2tri", "3tri", "IG_ig", "puerp")
+                  # ),
+                  hr(),
+                  # h4(strong("Diagnóstico")),
+                  # checkboxGroupInput(
+                  #   inputId = "classiCovid2",
+                  #   label = "Tipo de diagnóstico de COVID:",
+                  #   choices = c(
+                  #     "PCR" = "pcr",
+                  #     "Antigênio" = "antigenio",
+                  #     "Sorologia" = "sorologia",
+                  #     "Outro" = "outro",
+                  #     "Não confirmado ou não COVID-19" = "não"
+                  #   ),
+                  #   selected = c("pcr", "antigenio", "sorologia", "outro", "não")
+                  # ),
+                  h4(strong("Vacina")),
+                  checkboxGroupInput(
+                    inputId = "vacinacov6",
+                    label = "Tomou a vacina?:",
+                    choices = c(
+                      "Sim" = "sim",
+                      "Não" = "não",
+                      "Ignorado" = "ignorado",
+                      "Em branco" = "em branco"
+                    ),
+                    selected = c("sim","não","ignorado","em branco")
+                  )
+                  # checkboxGroupInput(
+                  #   inputId = "dosescov2",
+                  #   label = "Tomou quantas doses?:",
+                  #   choices = c(
+                  #     "Pelo menos uma dose" = "pelo menos uma dose",
+                  #     "Duas doses" = "duas doses",
+                  #     "Não informado" = "não informado"
+                  #   ),
+                  #   selected = c("pelo menos uma dose","duas doses","não informado")
+                  # )
+                ),
+                box(
+                  width = 8,
+                  status = "primary",
+                  div(tabsetPanel(
+                    tabPanel("Teste de Breslow Day",
+                             # highcharter::highchartOutput("plot21"),
+                             # verbatimTextOutput("table2"),
+                             # h3(strong("Teste de Fisher")),
+                             verbatimTextOutput("print6"))
+                  )),
+                  h3(strong("Observação")),
+                  p(
+                    "O Teste acima é analisado em condicionando as variantes e os grupos Gestantes ou Puérperas"
+                  )
+                )
+              )
+              
+      )
     )))
     
 # Server ----
@@ -661,11 +1314,8 @@ server <- function(input, output, session) {
       dplyr::filter(idade_anos >= input$idade1[1]) %>%
       dplyr::filter(idade_anos <= input$idade1[2]) %>%
       dplyr::filter(classi_gesta_puerp %in% input$GestantePuerpera1) %>%
-      # dplyr::filter(CLASSI_FIN %in% input$confCovid2) %>%
-      # dplyr::filter(classi_covid %in% input$classiCovid1) %>%
       dplyr::filter(vacina_cov_sel %in% input$vacinacov) %>%
       dplyr::filter(variante %in% input$classivariante) %>%
-      # dplyr::filter(doses %in% input$dosescov) %>%
       {
         if (input$na1 == TRUE)
           dplyr::filter(., !is.na(get(input$caracteristicas1)))
@@ -727,43 +1377,29 @@ server <- function(input, output, session) {
   })
   
   
-  ## base de dados com filtragem por inputs para analise por variante ----
+  ## base de dados com filtragem por inputs para analise por variante  smote ----
   
   selectData3 <- reactive({
     dados_smote %>%
       dplyr::filter(idade_anos >= input$idade2[1]) %>%
       dplyr::filter(idade_anos <= input$idade2[2]) %>% 
       dplyr::filter(classi_gesta_puerp %in% input$GestantePuerpera2) %>% 
-      dplyr::filter(vacina_cov %in% input$vacinacov2) 
-      # dplyr::filter(doses %in% input$dosescov2) %>%
-      #dplyr::filter(!is.na(vacina_cov)) %>% 
-      # {
-      #   if (input$na2 == TRUE)
-      #     dplyr::filter(., !is.na(get(input$caracteristicas2)))
-      #   else
-      #     dplyr::filter(., (!is.na(get(
-      #       input$caracteristicas2
-      #     )) | is.na(get(
-      #       input$caracteristicas2
-      #     ))))
-      # }
+      dplyr::filter(vacina_cov %in% input$vacinacov2) %>% 
+      dplyr::filter(variante %in% input$classivariante2) 
   })
   
   ### Gráfico e tabela cruzada Original ----
   
-  selectData4 <- reactive({
-    selectData3()
-  })
   
   dados_hc_aux2 <- reactive({
-    selectData4() %>%
+    selectData3() %>%
       count(var = .[["grupos"]]) %>%
       mutate(ntot = n) %>%
       select(-n)
   })
 
   dados_hc2 <- reactive({
-    selectData4() %>%
+    selectData3() %>%
       count(var = .[["grupos"]],
             var2 = .[[input$caracteristicas2]]) %>%
       full_join(dados_hc_aux2(), by = "var") %>%
@@ -783,7 +1419,7 @@ server <- function(input, output, session) {
   output$table2 <- renderPrint({
     st_options(headings = FALSE, display.labels = FALSE)
     with(
-      selectData4(),
+      selectData3(),
       summarytools::ctable(
         get(input$caracteristicas2),
         grupos,
@@ -798,11 +1434,129 @@ server <- function(input, output, session) {
   })
   
   output$print2 <- renderPrint({
-    with(selectData4(),
+    with(selectData3(),
          fisher.test(grupos,get(input$caracteristicas2),simulate.p.value = TRUE))
   })
   
   
+  ## base de dados com filtragem por inputs para analise downsample ----
+  
+  selectData4 <- reactive({
+    dados_downsample %>%
+      dplyr::filter(idade_anos >= input$idade3[1]) %>%
+      dplyr::filter(idade_anos <= input$idade3[2]) %>% 
+      dplyr::filter(classi_gesta_puerp %in% input$GestantePuerpera3) %>% 
+      dplyr::filter(vacina_cov %in% input$vacinacov3) %>% 
+      dplyr::filter(variante %in% input$classivariante3) 
+  })
+  
+  ### Gráfico e tabela cruzada Original ----
+
+  
+  dados_hc_aux3 <- reactive({
+    selectData4() %>%
+      count(var = .[["grupos"]]) %>%
+      mutate(ntot = n) %>%
+      select(-n)
+  })
+  
+  dados_hc3 <- reactive({
+    selectData4() %>%
+      count(var = .[["grupos"]],
+            var2 = .[[input$caracteristicas2]]) %>%
+      full_join(dados_hc_aux3(), by = "var") %>%
+      mutate(porc = round((n / ntot) * 100, 2))
+  })
+  
+  output$plot31 <- highcharter::renderHighchart({
+    hchart(dados_hc3(), type = "column",
+           hcaes(x = var,
+                 y = porc, group = var2)) %>%
+      hc_xAxis(title = list(text = "Gestante ou Puérpera")) %>%
+      hc_yAxis(title = list(text = "%")) %>%
+      hc_add_theme(hc_theme_elementary())
+  })
+  
+  
+  output$table3 <- renderPrint({
+    st_options(headings = FALSE, display.labels = FALSE)
+    with(
+      selectData4(),
+      summarytools::ctable(
+        get(input$caracteristicas3),
+        grupos,
+        prop = "c",
+        headings = st_options("headings"),
+        display.labels = st_options("display.labels"),
+        useNA = "ifany",
+        dnn = c(input$caracteristicas3, "Gestante ou Puérpera"),
+        chisq = TRUE
+      )
+    )
+  })
+  
+  output$print3 <- renderPrint({
+    with(selectData4(),
+         fisher.test(grupos,get(input$caracteristicas3),simulate.p.value = TRUE))
+  })
+  
+  
+  ## base de dados com calculo OR ----
+  
+  selectData5 <- reactive({
+    dados5 %>%
+      dplyr::filter(idade_anos >= input$idade4[1]) %>%
+      dplyr::filter(idade_anos <= input$idade4[2]) %>% 
+      dplyr::filter(vacina_cov_sel %in% input$vacinacov4) 
+  })
+  
+  output$print4 <- renderPrint({
+    teste_breslowday(
+      selectData5() %>% filter(variante == "original"),
+      selectData5() %>% filter(variante == "gama"),
+      selectData5() %>% filter(variante == "delta"),
+      selectData5() %>% filter(variante == "omicron"),
+      input$caracteristicas4
+    )
+  })
+  
+  
+  selectData6 <- reactive({
+    dados_smote %>%
+      dplyr::filter(idade_anos >= input$idade5[1]) %>%
+      dplyr::filter(idade_anos <= input$idade5[2]) %>% 
+      dplyr::filter(vacina_cov %in% input$vacinacov5) %>% 
+      dplyr::filter((get(input$caracteristicas5) != "ignorado") & (get(input$caracteristicas5) != "em branco"))
+  })
+  
+  output$print5 <- renderPrint({
+    teste_breslowday(
+      selectData6() %>% filter(variante == "original"),
+      selectData6() %>% filter(variante == "gama"),
+      selectData6() %>% filter(variante == "delta"),
+      selectData6() %>% filter(variante == "omicron"),
+      input$caracteristicas5
+    )
+  })
+  
+  selectData7 <- reactive({
+    dados_downsample %>%
+      dplyr::filter(idade_anos >= input$idade6[1]) %>%
+      dplyr::filter(idade_anos <= input$idade6[2]) %>% 
+      dplyr::filter(vacina_cov %in% input$vacinacov6) %>% 
+      dplyr::filter((get(input$caracteristicas6) != "ignorado") & (get(input$caracteristicas6) != "em branco"))
+    
+  })
+  
+  output$print6 <- renderPrint({
+    teste_breslowday(
+      selectData7() %>% filter(variante == "original"),
+      selectData7() %>% filter(variante == "gama"),
+      selectData7() %>% filter(variante == "delta"),
+      selectData7() %>% filter(variante == "omicron"),
+      input$caracteristicas6
+    )
+  })
   
   
   # Gather all the form inputs (and add timestamp)
