@@ -34,7 +34,8 @@ dados5 <- dados5 %>%
   mutate(vacina_cov1 = case_when(
     variante == "original" ~ "não",
     vacina_cov == "sim" ~ "sim",
-    vacina_cov == "não" ~ "não",
+    vacina_cov == "não" 
+    ~ "não",
     TRUE ~ NA_character_
   ))
 
