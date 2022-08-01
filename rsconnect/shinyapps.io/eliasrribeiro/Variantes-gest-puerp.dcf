@@ -5,10 +5,10 @@ account: eliasrribeiro
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 6679899
-bundleId: 6131966
+bundleId: 6139486
 url: https://eliasrribeiro.shinyapps.io/Variantes-gest-puerp/
-when: 1658780878.72729
-lastSyncTime: 1658780878.7273
+when: 1658947340.84305
+lastSyncTime: 1658947340.84306
 asMultiple: FALSE
 asStatic: FALSE
-ignoredFiles: amostragens.R|BreslowDay.R|dados6.rds|doc_covid_gesta_puerp_OOBrCOVID-19.tex|doc_dados_novo.Rmd|Gráficos desfechos.pptx|Manuscript-new article (versão formatada com acrescimo artigo Cris).docx|Relatório_filtros_dados.pdf|Relatório_filtros_dados.Rmd|Relatório_filtros_dados.tex|Tese fluxograma - 2a parte ingles atualizado.pptx
+ignoredFiles: amostragens.R|BreslowDay.R|dados_amostragem.rds|dados_downsample.rds|dados_smote.rds|dados6.rds|doc_covid_gesta_puerp_OOBrCOVID-19.tex|doc_dados_novo.Rmd|Gráficos desfechos.pptx|Manuscript-new article (versão formatada com acrescimo artigo Cris).docx|Relatório_filtros_dados.pdf|Relatório_filtros_dados.Rmd|Relatório_filtros_dados.tex|Tese fluxograma - 2a parte ingles atualizado.pptx

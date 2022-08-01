@@ -28,7 +28,7 @@ library(dplyr)
 
 # Carregando a base de dados ----
 
-dados5 <- readRDS("dados_var.rds")
+dados5 <- readRDS("dados6.rds")
 
 dados5 <- dados5 %>% 
   mutate(vacina_cov1 = case_when(
