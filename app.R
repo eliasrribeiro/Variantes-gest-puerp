@@ -1453,7 +1453,7 @@ server <- function(input, output, session) {
   
   selectData_smote <- reactive({
     dados5 %>%
-       dplyr::filter(idade_anos >= input$idade2[1]) %>%
+       dplyr::filter( idade_anos >= input$idade2[1]) %>%
        dplyr::filter(idade_anos <= input$idade2[2]) %>% 
        dplyr::filter(classi_gesta_puerp %in% input$GestantePuerpera2) #%>% 
        # dplyr::filter(vacina_cov_sel %in% input$vacinacov2) 
